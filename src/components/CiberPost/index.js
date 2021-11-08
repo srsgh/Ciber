@@ -16,14 +16,17 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 const Post = props => {
   const [localPost, setLocalPost] = React.useState(props.post);
   const [isPaused, setIsPaused] = React.useState(false);
+  const [isLiked, setIsLiked] = React.useState(false);
   const onVideoPress = () => {
     setIsPaused(!isPaused);
   };
   const onLikePress = () => {
+    const likeUpdate = isLiked ? -1 : 1;
     setLocalPost({
       ...localPost,
-      likes: localPost.likes + 1,
+      likes: localPost.likes + likeUpdate,
     });
+    setIsLiked(!isLiked);
   };
   return (
     <View style={styles.profileCard}>
@@ -59,7 +62,11 @@ const Post = props => {
               <Text style={styles.stats}>PING</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.options} onPress={onLikePress}>
-              <FontAwesome name={'heart'} size={35} color="white" />
+              <FontAwesome
+                name={'heart'}
+                size={35}
+                color={isLiked ? 'red' : 'white'}
+              />
               <Text style={styles.stats}>{localPost.likes}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.options}>
