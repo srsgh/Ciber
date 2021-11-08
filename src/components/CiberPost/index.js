@@ -33,7 +33,6 @@ const Post = props => {
       <View style={styles.layout}>
         <View style={styles.top}>
           <Button title="Connect" color="transparent" />
-          {/* <Text style={styles.topText}>Connect</Text> */}
           <Text style={styles.topText}>EXPLORE</Text>
         </View>
         <View style={styles.bottomSide}>
@@ -45,24 +44,22 @@ const Post = props => {
                 }}
                 style={styles.image}
               />
+              <Text style={styles.stats}></Text>
             </View>
             <View style={styles.options}>
-              <FontAwesome5 name={'hands-helping'} size={40} color="white" />
+              <FontAwesome5 name={'hands-helping'} size={35} color="white" />
               <Text style={styles.stats}>PING</Text>
             </View>
             <View style={styles.options}>
-              <FontAwesome name={'heart'} size={40} color="white" />
+              <FontAwesome name={'heart'} size={35} color="white" />
               <Text style={styles.stats}>{props.post.likes}</Text>
             </View>
             <View style={styles.options}>
-              <FontAwesome name={'commenting'} size={40} color="white" />
+              <FontAwesome name={'commenting'} size={35} color="white" />
               <Text style={styles.stats}>{props.post.comments}</Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={styles.handle}>@{props.post.user.username}</Text>
-            {/* <Button title={'Connect'} /> */}
-          </View>
+          <Text style={styles.handle}>@{props.post.user.username}</Text>
           <Text
             style={styles.description}
             numberOfLines={3}
@@ -80,9 +77,9 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
   },
   image: {
-    width: 60,
-    height: 60,
-    borderRadius: 100,
+    width: 55,
+    height: 55,
+    borderRadius: 30,
     borderWidth: 2,
     borderColor: 'white',
     // marginBottom: 8,
