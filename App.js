@@ -33,6 +33,18 @@ const App = () => {
             paused={isPaused}
           />
         </TouchableWithoutFeedback>
+        <View style={styles.bottomSide}>
+          <View style={styles.side}>
+            <Image
+              source={{
+                uri: 'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+              }}
+              style={styles.image}
+            />
+          </View>
+          <Text style={styles.handle}>@creatername</Text>
+          <Text style={styles.description}>some random description</Text>
+        </View>
       </View>
     </View>
   );
@@ -40,19 +52,49 @@ const App = () => {
 const styles = StyleSheet.create({
   main: {alignItems: 'center', justifyContent: 'center', flex: 1},
   profileCard: {
-    width: '95%',
-    height: '90%',
-    borderRadius: 10,
-    // height: Dimensions.get('window').height,
+    // width: '95%',
+    // height: '90%',
+    // borderRadius: 10,
+    width: '100%',
+    height: Dimensions.get('window').height,
   },
-  image: {width: '100%', height: '100%', borderRadius: 10},
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: 100,
+    borderWidth: 4,
+    borderColor: 'white',
+    marginBottom: 8,
+  },
   video: {
     position: 'absolute',
     top: 0,
     bottom: 0,
     left: 0,
     right: 0,
-    borderRadius: 10,
+    // borderRadius: 10,
+  },
+  bottomSide: {
+    height: '100%',
+    padding: 8,
+    justifyContent: 'flex-end',
+  },
+  side: {
+    // backgroundColor: 'yellow',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  handle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 8,
+  },
+  description: {
+    fontSize: 16,
+    fontWeight: '300',
+    color: 'white',
+    marginBottom: 8,
   },
 });
 export default App;
