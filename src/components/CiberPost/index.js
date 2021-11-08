@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Dimensions,
+  TouchableOpacity,
   Button,
 } from 'react-native';
 import Video from 'react-native-video';
@@ -13,16 +14,23 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const Post = props => {
+  const [localPost, setLocalPost] = React.useState(props.post);
   const [isPaused, setIsPaused] = React.useState(false);
   const onVideoPress = () => {
     setIsPaused(!isPaused);
+  };
+  const onLikePress = () => {
+    setLocalPost({
+      ...localPost,
+      likes: localPost.likes + 1,
+    });
   };
   return (
     <View style={styles.profileCard}>
       <TouchableWithoutFeedback onPress={onVideoPress}>
         <Video
           source={{
-            uri: props.post.videoURI,
+            uri: localPost.videoURI,
           }}
           style={styles.video}
           resizeMode={'cover'}
@@ -40,31 +48,31 @@ const Post = props => {
             <View style={styles.options}>
               <Image
                 source={{
-                  uri: props.post.user.ppURI,
+                  uri: localPost.user.ppURI,
                 }}
                 style={styles.image}
               />
               <Text style={styles.stats}></Text>
             </View>
-            <View style={styles.options}>
+            <TouchableOpacity style={styles.options}>
               <FontAwesome5 name={'hands-helping'} size={35} color="white" />
               <Text style={styles.stats}>PING</Text>
-            </View>
-            <View style={styles.options}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.options} onPress={onLikePress}>
               <FontAwesome name={'heart'} size={35} color="white" />
-              <Text style={styles.stats}>{props.post.likes}</Text>
-            </View>
-            <View style={styles.options}>
+              <Text style={styles.stats}>{localPost.likes}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.options}>
               <FontAwesome name={'commenting'} size={35} color="white" />
-              <Text style={styles.stats}>{props.post.comments}</Text>
-            </View>
+              <Text style={styles.stats}>{localPost.comments}</Text>
+            </TouchableOpacity>
           </View>
-          <Text style={styles.handle}>@{props.post.user.username}</Text>
+          <Text style={styles.handle}>@{localPost.user.username}</Text>
           <Text
             style={styles.description}
             numberOfLines={3}
             ellipsizeMode="tail">
-            {props.post.desc}
+            {localPost.desc}
           </Text>
         </View>
       </View>
