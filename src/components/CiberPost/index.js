@@ -13,9 +13,11 @@ import Video from 'react-native-video';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Foundation from 'react-native-vector-icons/Foundation';
 const Post = props => {
   const [localPost, setLocalPost] = React.useState(props.post);
   const [isPaused, setIsPaused] = React.useState(false);
+  const [isPinged, setIsPinged] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
   const onVideoPress = () => {
     setIsPaused(!isPaused);
@@ -27,6 +29,9 @@ const Post = props => {
       likes: localPost.likes + likeUpdate,
     });
     setIsLiked(!isLiked);
+  };
+  const onPingPress = () => {
+    setIsPinged(!isPinged);
   };
   return (
     <View style={styles.profileCard}>
@@ -57,15 +62,19 @@ const Post = props => {
               />
               <Text style={styles.stats}></Text>
             </View>
-            <TouchableOpacity style={styles.options}>
-              <FontAwesome5 name={'hands-helping'} size={35} color="white" />
+            <TouchableOpacity style={styles.options} onPress={onPingPress}>
+              <FontAwesome5
+                name={'hands-helping'}
+                size={35}
+                color={isPinged ? '#149EF0' : '#eeeeee'}
+              />
               <Text style={styles.stats}>PING</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.options} onPress={onLikePress}>
               <FontAwesome
                 name={'heart'}
                 size={35}
-                color={isLiked ? 'red' : 'white'}
+                color={isLiked ? '#FF4500' : '#eeeeee'}
               />
               <Text style={styles.stats}>{localPost.likes}</Text>
             </TouchableOpacity>
