@@ -12,7 +12,7 @@ import Video from 'react-native-video';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-const VideoCard = () => {
+const Post = props => {
   const [isPaused, setIsPaused] = React.useState(false);
   const onVideoPress = () => {
     setIsPaused(!isPaused);
@@ -22,7 +22,7 @@ const VideoCard = () => {
       <TouchableWithoutFeedback onPress={onVideoPress}>
         <Video
           source={{
-            uri: 'https://player.vimeo.com/external/500620909.sd.mp4?s=fedc9a991e20c92108928e333e13e5dd9eda5cc5&profile_id=165&oauth2_token_id=57447761',
+            uri: props.post.videoURI,
           }}
           style={styles.video}
           resizeMode={'cover'}
@@ -41,7 +41,7 @@ const VideoCard = () => {
             <View style={styles.options}>
               <Image
                 source={{
-                  uri: 'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+                  uri: props.post.user.ppURI,
                 }}
                 style={styles.image}
               />
@@ -52,28 +52,22 @@ const VideoCard = () => {
             </View>
             <View style={styles.options}>
               <FontAwesome name={'heart'} size={40} color="white" />
-              <Text style={styles.stats}>143</Text>
+              <Text style={styles.stats}>{props.post.likes}</Text>
             </View>
             <View style={styles.options}>
               <FontAwesome name={'commenting'} size={40} color="white" />
-              <Text style={styles.stats}>143</Text>
+              <Text style={styles.stats}>{props.post.comments}</Text>
             </View>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={styles.handle}>@creatername</Text>
+            <Text style={styles.handle}>@{props.post.user.username}</Text>
             {/* <Button title={'Connect'} /> */}
           </View>
           <Text
             style={styles.description}
             numberOfLines={3}
             ellipsizeMode="tail">
-            some random descriptionsome random description some random
-            description some random description description some random
-            description some random descriptionsome random description some
-            random description some random description description some random
-            description some random descriptionsome random description some
-            random description some random description description some random
-            description
+            {props.post.desc}
           </Text>
         </View>
       </View>
@@ -152,4 +146,4 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
 });
-export default VideoCard;
+export default Post;
