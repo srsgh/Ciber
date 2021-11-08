@@ -89,6 +89,7 @@ const Post = props => {
 const styles = StyleSheet.create({
   profileCard: {
     width: '100%',
+    backgroundColor: '#111',
     height: Dimensions.get('window').height,
   },
   image: {
