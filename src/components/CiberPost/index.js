@@ -12,13 +12,13 @@ import {
 import Video from 'react-native-video';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Foundation from 'react-native-vector-icons/Foundation';
+
 const Post = props => {
   const [localPost, setLocalPost] = React.useState(props.post);
   const [isPaused, setIsPaused] = React.useState(false);
   const [isPinged, setIsPinged] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
+
   const onVideoPress = () => {
     setIsPaused(!isPaused);
   };
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   profileCard: {
     width: '100%',
     backgroundColor: '#111',
-    height: Dimensions.get('window').height,
+    height: Dimensions.get('window').height - 50,
   },
   image: {
     width: 55,
