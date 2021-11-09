@@ -4,6 +4,7 @@ import posts from '../../assets/data/posts';
 import Post from '../../components/CiberPost';
 
 const Home = () => {
+  console.warn('Hi');
   return (
     <View>
       <FlatList

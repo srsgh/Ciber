@@ -5,16 +5,20 @@ import {
   Text,
   Image,
   StyleSheet,
+  SafeAreaView,
   TouchableWithoutFeedback,
   Dimensions,
 } from 'react-native';
 import Video from 'react-native-video';
 import Home from './src/screens/Home/index.js';
+import RootNavigation from './src/navigation/index.js';
+// import {SafeAreaView} from 'react-native-safe-area-context';
 const App = () => {
   return (
-    <View>
-      <Home />
-    </View>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'red'}}>
+      {/* <Home /> */}
+      <RootNavigation />
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
