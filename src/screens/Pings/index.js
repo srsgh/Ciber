@@ -29,7 +29,7 @@ const Pings = () => {
           <FlatList
             data={posts}
             renderItem={({item}) => (
-              <TouchableOpacity activeOpacity="0.1">
+              <TouchableOpacity>
                 <View style={styles.ping}>
                   <View style={{}}>
                     <View style={styles.pingLeft}>
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 24,
     padding: 8,
-    color: '#149EF0',
+    color: 'black',
+    //#149EF0
   },
   baseCard: {
     width: '100%',
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   },
   handle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
     color: 'black',
   },
   pings: {
@@ -128,11 +129,12 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     flex: 1,
     // backgroundColor: 'yellow',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   message: {
     fontSize: 16,
-    fontWeight: '300',
+    // fontWeight: '300',
     color: '#545454',
   },
   //   actions: {

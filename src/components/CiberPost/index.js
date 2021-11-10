@@ -150,13 +150,13 @@ const styles = StyleSheet.create({
   },
   handle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
     color: 'white',
     marginBottom: 8,
   },
   description: {
     fontSize: 16,
-    fontWeight: '300',
+    // fontWeight: '300',
     color: 'white',
     marginBottom: 8,
   },
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   stats: {
     fontSize: 16,
-    fontWeight: '300',
+    // fontWeight: '300',
     color: 'white',
   },
   top: {
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   },
   topText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: '700',
     color: 'white',
     // paddingLeft: 8,
   },
