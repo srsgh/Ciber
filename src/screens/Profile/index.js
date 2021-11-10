@@ -8,7 +8,6 @@ const Profile = () => {
       <View
         style={{
           height: '15%',
-
           backgroundColor: 'gray',
           justifyContent: 'center',
           alignItems: 'center',

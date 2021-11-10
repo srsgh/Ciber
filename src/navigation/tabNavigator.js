@@ -3,7 +3,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Inbox from '../screens/Inbox';
 import Profile from '../screens/Profile';
+import Pings from '../screens/Pings';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Fontiso from 'react-native-vector-icons/Fontisto';
 const Tab = createBottomTabNavigator();
 const tagNavigator = () => {
   return (
@@ -27,7 +29,7 @@ const tagNavigator = () => {
       />
       <Tab.Screen
         name="Pings"
-        component={Profile}
+        component={Pings}
         options={{
           tabBarIcon: ({color}) => (
             <FontAwesome name={'users'} size={24} color={color} />
@@ -36,11 +38,11 @@ const tagNavigator = () => {
       />
 
       <Tab.Screen
-        name="Home"
+        name="Explore"
         component={Home}
         options={{
           tabBarIcon: ({color}) => (
-            <FontAwesome name={'home'} size={24} color={color} />
+            <Fontiso name={'earth'} size={24} color={color} />
           ),
         }}
       />

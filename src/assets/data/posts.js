@@ -24,7 +24,7 @@ export default [
       username: 'jeffreybezos',
       ppURI: 'https://the360report.com/wp-content/uploads/2020/10/jeff.jpg',
     },
-    desc: 'Amazon Sale is mad crazy this year. But the UI teams still uner management.',
+    desc: 'Amazon Sale is mad crazy this year. But the UI teams still uner management. And some testers are required too.',
     likes: 10,
     comments: 5,
   },
@@ -43,4 +43,109 @@ export default [
     likes: 110,
     comments: 85,
   },
+  {
+    id: 'p4',
+    status: false,
+    videoURI:
+      'https://player.vimeo.com/external/517093227.hd.mp4?s=e9a3ffd563d9438a9565e584d2ad228a7baa6e73&profile_id=175&oauth2_token_id=57447761',
+    user: {
+      id: 'u1',
+      username: 'elonmusk',
+      ppURI:
+        'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+    },
+    desc: 'Stonks Management UI team required.',
+    likes: 110,
+    comments: 85,
+  },
+  {
+    id: 'p5',
+    status: false,
+    videoURI:
+      'https://player.vimeo.com/external/517093227.hd.mp4?s=e9a3ffd563d9438a9565e584d2ad228a7baa6e73&profile_id=175&oauth2_token_id=57447761',
+    user: {
+      id: 'u1',
+      username: 'elonmusk',
+      ppURI:
+        'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+    },
+    desc: 'Stonks Management UI team required.',
+    likes: 110,
+    comments: 85,
+  },
+  {
+    id: 'p6',
+    status: false,
+    videoURI:
+      'https://player.vimeo.com/external/517093227.hd.mp4?s=e9a3ffd563d9438a9565e584d2ad228a7baa6e73&profile_id=175&oauth2_token_id=57447761',
+    user: {
+      id: 'u1',
+      username: 'elonmusk',
+      ppURI:
+        'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+    },
+    desc: 'Stonks Management UI team required.',
+    likes: 110,
+    comments: 85,
+  },
+  {
+    id: 'p7',
+    status: false,
+    videoURI:
+      'https://player.vimeo.com/external/517093227.hd.mp4?s=e9a3ffd563d9438a9565e584d2ad228a7baa6e73&profile_id=175&oauth2_token_id=57447761',
+    user: {
+      id: 'u1',
+      username: 'elonmusk',
+      ppURI:
+        'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+    },
+    desc: 'Stonks Management UI team required.',
+    likes: 110,
+    comments: 85,
+  },
+  // {
+  //   id: 'p8',
+  //   status: false,
+  //   videoURI:
+  //     'https://player.vimeo.com/external/517093227.hd.mp4?s=e9a3ffd563d9438a9565e584d2ad228a7baa6e73&profile_id=175&oauth2_token_id=57447761',
+  //   user: {
+  //     id: 'u1',
+  //     username: 'elonmusk',
+  //     ppURI:
+  //       'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+  //   },
+  //   desc: 'Stonks Management UI team required.',
+  //   likes: 110,
+  //   comments: 85,
+  // },
+  // {
+  //   id: 'p9',
+  //   status: false,
+  //   videoURI:
+  //     'https://player.vimeo.com/external/517093227.hd.mp4?s=e9a3ffd563d9438a9565e584d2ad228a7baa6e73&profile_id=175&oauth2_token_id=57447761',
+  //   user: {
+  //     id: 'u1',
+  //     username: 'elonmusk',
+  //     ppURI:
+  //       'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+  //   },
+  //   desc: 'Stonks Management UI team required.',
+  //   likes: 110,
+  //   comments: 85,
+  // },
+  // {
+  //   id: 'p10',
+  //   status: false,
+  //   videoURI:
+  //     'https://player.vimeo.com/external/517093227.hd.mp4?s=e9a3ffd563d9438a9565e584d2ad228a7baa6e73&profile_id=175&oauth2_token_id=57447761',
+  //   user: {
+  //     id: 'u1',
+  //     username: 'elonmusk',
+  //     ppURI:
+  //       'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+  //   },
+  //   desc: 'Stonks Management UI team required.',
+  //   likes: 110,
+  //   comments: 85,
+  // },
 ];

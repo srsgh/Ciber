@@ -31,6 +31,7 @@ const Post = props => {
     setIsLiked(!isLiked);
   };
   const onPingPress = () => {
+    //update the actual pings list for the post then
     setIsPinged(!isPinged);
   };
   return (
