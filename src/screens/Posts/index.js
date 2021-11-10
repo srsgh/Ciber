@@ -29,7 +29,7 @@ const Posts = () => {
                   <Text style={styles.handle}>@{item.user.username}</Text>
 
                   <Text style={styles.message}>"{item.desc}"</Text>
-                  <View style={styles.actions}>
+                  <View>
                     <Button
                       onPress={onClosePress}
                       title={isOpen ? 'CLOSE' : 'CLOSED'}

@@ -10,21 +10,19 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import posts from '../../assets/data/posts';
 
 const Pings = () => {
-  //   const [isChecked, setIsChecked] = React.useState(false);
-  //   const onAcceptPress = () => {
-  //     setIsChecked(!isChecked);
-  //   };
-  //   const [isRejected, setIsRejected] = React.useState(false);
-  //   const onRejectPress = () => {
-  //     setIsRejected(!isRejected);
-  //   };
   return (
     <SafeAreaView>
       <View style={styles.baseCard}>
-        <Text style={styles.header}>Ping Requests</Text>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Ping Requests</Text>
+          <TouchableOpacity>
+            <FontAwesome name={'inbox'} size={32} color="black" />
+          </TouchableOpacity>
+        </View>
         <View style={styles.pings}>
           <FlatList
             data={posts}
@@ -83,9 +81,15 @@ export default Pings;
 
 const styles = StyleSheet.create({
   header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 8,
+  },
+  headerTitle: {
     fontWeight: 'bold',
     fontSize: 24,
-    padding: 8,
+    // padding: 8,
     color: 'black',
     //#149EF0
   },
