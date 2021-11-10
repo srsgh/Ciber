@@ -5,6 +5,7 @@ import {
   Dimensions,
   FlatList,
   SafeAreaView,
+  TextInput,
   Text,
   View,
   ScrollView,
@@ -136,34 +137,24 @@ const Profile = () => {
           </View>
           {/* <View style={{padding: 8}}>
             <Text style={styles.res1fn}>POSTS</Text>
-            <ScrollView style={{marginLeft: 8, height: 50}}>
-              <Pressable
-                onPress={() => {
-                  Linking.openURL('https://twitter.com/elonmusk');
-                }}>
-                <FlatList
-                  data={posts}
-                  renderItem={({item}) => (
-                    <TouchableOpacity>
-                      <View style={styles.ping}>
-                        <View style={styles.pingRight}>
-                          <Text style={styles.handle}>
-                            @{item.user.username}
-                          </Text>
-
-                          <Text
-                            style={styles.message}
-                            // numberOfLines={2}
-                            // ellipsizeMode="tail"
-                          >
-                            "{item.desc}"
-                          </Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  )}
-                />
-              </Pressable>
+            <ScrollView style={{marginLeft: 8}}>
+              <FlatList
+                data={posts}
+                renderItem={({item}) => (
+                  <View style={styles.ping}>
+                    <View style={styles.pingRight}>
+                      <Text style={styles.handle}>@{item.user.username}</Text>
+                      <Text
+                        style={styles.message}
+                        // numberOfLines={2}
+                        // ellipsizeMode="tail"
+                      >
+                        "{item.desc}"
+                      </Text>
+                    </View>
+                  </View>
+                )}
+              />
             </ScrollView>
           </View> */}
         </View>
@@ -192,6 +183,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   resume: {
+    paddingTop: 8,
     borderTopColor: 'gray',
     borderTopWidth: 0.5,
     borderBottomColor: 'gray',

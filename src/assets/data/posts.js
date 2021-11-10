@@ -1,7 +1,7 @@
 export default [
   {
     id: 'p1',
-    status: false,
+    status: false, //false=not resolved=open
     videoURI:
       'https://player.vimeo.com/external/500620909.sd.mp4?s=fedc9a991e20c92108928e333e13e5dd9eda5cc5&profile_id=165&oauth2_token_id=57447761',
     user: {

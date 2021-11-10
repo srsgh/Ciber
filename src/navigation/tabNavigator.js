@@ -1,16 +1,17 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
-import Inbox from '../screens/Inbox';
+import Posts from '../screens/Posts';
 import Profile from '../screens/Profile';
 import Pings from '../screens/Pings';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontiso from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const Tab = createBottomTabNavigator();
 const tagNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName={Home}
+      // initialRouteName={Home}
       tabBarOptions={{
         tabStyle: {
           backgroundColor: 'black',
@@ -19,11 +20,11 @@ const tagNavigator = () => {
       }}
       screenOptions={{headerShown: false}}>
       <Tab.Screen
-        name="Inbox"
-        component={Inbox}
+        name="Explore"
+        component={Home}
         options={{
           tabBarIcon: ({color}) => (
-            <FontAwesome name={'inbox'} size={24} color={color} />
+            <Fontiso name={'earth'} size={24} color={color} />
           ),
         }}
       />
@@ -38,16 +39,6 @@ const tagNavigator = () => {
       />
 
       <Tab.Screen
-        name="Explore"
-        component={Home}
-        options={{
-          tabBarIcon: ({color}) => (
-            <Fontiso name={'earth'} size={24} color={color} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
         name="Upload"
         component={Profile}
         options={{
@@ -56,7 +47,15 @@ const tagNavigator = () => {
           ),
         }}
       />
-
+      <Tab.Screen
+        name="Posts"
+        component={Posts}
+        options={{
+          tabBarIcon: ({color}) => (
+            <MaterialIcons name={'video-collection'} size={24} color={color} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Profile"
         component={Profile}
