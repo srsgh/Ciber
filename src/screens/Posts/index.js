@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   baseCard: {
     width: '100%',
     backgroundColor: 'white',
-    height: Dimensions.get('window').height - 50,
+    height: Dimensions.get('window').height - 8,
   },
   video: {
     width: 70,

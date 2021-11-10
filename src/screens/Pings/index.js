@@ -12,8 +12,10 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import posts from '../../assets/data/posts';
+// import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
 const Pings = () => {
+  // const tabBarHeight = useBottomTabBarHeight();
   return (
     <SafeAreaView>
       <View style={styles.baseCard}>
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
   baseCard: {
     width: '100%',
     backgroundColor: 'white',
-    height: Dimensions.get('window').height - 50,
+    height: Dimensions.get('window').height - 8,
   },
   image: {
     width: 70,
@@ -111,6 +113,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   pings: {
+    // height: Dimensions.get('window').height,
     borderTopColor: 'gray',
     borderTopWidth: 0.5,
     borderBottomColor: 'gray',
