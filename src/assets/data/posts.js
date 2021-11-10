@@ -1,6 +1,7 @@
 export default [
   {
     id: 'p1',
+    status: false,
     videoURI:
       'https://player.vimeo.com/external/500620909.sd.mp4?s=fedc9a991e20c92108928e333e13e5dd9eda5cc5&profile_id=165&oauth2_token_id=57447761',
     user: {
@@ -15,6 +16,7 @@ export default [
   },
   {
     id: 'p2',
+    status: true,
     videoURI:
       'https://player.vimeo.com/external/642508430.sd.mp4?s=fa4c0c70c5d1f6cd36c2213716f7f5c7e7e6398f&profile_id=165&oauth_token_id=57447761',
     user: {
@@ -28,6 +30,7 @@ export default [
   },
   {
     id: 'p3',
+    status: false,
     videoURI:
       'https://player.vimeo.com/external/517093227.hd.mp4?s=e9a3ffd563d9438a9565e584d2ad228a7baa6e73&profile_id=175&oauth2_token_id=57447761',
     user: {

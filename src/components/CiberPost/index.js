@@ -12,13 +12,13 @@ import {
 import Video from 'react-native-video';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 const Post = props => {
   const [localPost, setLocalPost] = React.useState(props.post);
   const [isPaused, setIsPaused] = React.useState(false);
   const [isPinged, setIsPinged] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
-
+  const tabBarHeight = useBottomTabBarHeight();
   const onVideoPress = () => {
     setIsPaused(!isPaused);
   };
@@ -34,7 +34,12 @@ const Post = props => {
     setIsPinged(!isPinged);
   };
   return (
-    <View style={styles.profileCard}>
+    <View
+      style={{
+        width: '100%',
+        backgroundColor: '#111',
+        height: Dimensions.get('window').height - tabBarHeight,
+      }}>
       <TouchableWithoutFeedback onPress={onVideoPress}>
         <Video
           source={{
@@ -48,8 +53,17 @@ const Post = props => {
       </TouchableWithoutFeedback>
       <View style={styles.layout}>
         <View style={styles.top}>
-          <Button title="Connect" color="transparent" />
-          <Text style={styles.topText}>EXPLORE</Text>
+          {/* <Button title="Connect" color="transparent" /> */}
+          <View
+            style={{
+              padding: 8,
+              backgroundColor: localPost.status ? 'green' : 'red',
+              borderRadius: 1,
+            }}>
+            <Text style={styles.topText}>
+              {localPost.status ? 'RESOLVED' : 'ISSUE'}
+            </Text>
+          </View>
         </View>
         <View style={styles.bottomSide}>
           <View style={styles.side}>
@@ -157,15 +171,16 @@ const styles = StyleSheet.create({
   },
   top: {
     paddingTop: 16,
+    padding: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   topText: {
-    fontSize: 16,
-    fontWeight: '300',
+    fontSize: 14,
+    fontWeight: '600',
     color: 'white',
-    paddingLeft: 8,
+    // paddingLeft: 8,
   },
 });
 export default Post;
