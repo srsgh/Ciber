@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ciber-dev-30941-authRole",
+      "UnauthRoleArn": "arn:aws:iam::586044500630:role/amplify-ciber-dev-30941-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::586044500630:role/amplify-ciber-dev-30941-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-ciber-dev-30941-deployment",
+      "UnauthRoleName": "amplify-ciber-dev-30941-unauthRole",
+      "StackName": "amplify-ciber-dev-30941",
+      "StackId": "arn:aws:cloudformation:ap-south-1:586044500630:stack/amplify-ciber-dev-30941/dc7d0170-5613-11ec-b16b-0a608f303098",
+      "AmplifyAppId": "d2ilyh18cciz3"
+    }
+  }
+}
