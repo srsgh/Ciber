@@ -21,7 +21,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Foundation from 'react-native-vector-icons/Foundation';
-
 const Profile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
   return (
@@ -33,6 +32,11 @@ const Profile = ({navigation}) => {
           height: Dimensions.get('window').height - tabBarHeight,
         }}>
         <Text style={styles.header}>creatorname</Text>
+        <Button
+          title="Back without saving changes"
+          color="black"
+          onPress={() => navigation.navigate('Profile')}
+        />
         <View style={styles.resume}>
           <View style={styles.res1}>
             <View>
@@ -52,9 +56,11 @@ const Profile = ({navigation}) => {
                   New York, USA
                 </Text>
               </View>
+
               <Button
-                title="Edit"
-                onPress={() => navigation.navigate('EditProfile')}
+                style={styles.res1left}
+                title="Save"
+                onPress={() => navigation.navigate('Profile')}
               />
             </View>
           </View>
@@ -139,28 +145,6 @@ const Profile = ({navigation}) => {
               </ScrollView>
             </View>
           </View>
-          {/* <View style={{padding: 8}}>
-            <Text style={styles.res1fn}>POSTS</Text>
-            <ScrollView style={{marginLeft: 8}}>
-              <FlatList
-                data={posts}
-                renderItem={({item}) => (
-                  <View style={styles.ping}>
-                    <View style={styles.pingRight}>
-                      <Text style={styles.handle}>@{item.user.username}</Text>
-                      <Text
-                        style={styles.message}
-                        // numberOfLines={2}
-                        // ellipsizeMode="tail"
-                      >
-                        "{item.desc}"
-                      </Text>
-                    </View>
-                  </View>
-                )}
-              />
-            </ScrollView>
-          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>

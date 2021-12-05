@@ -8,26 +8,39 @@ type User @model {
   username: String!
   email: String!
   ppURI: String
+  posts: [Post] @hasMany(index: "byUser", fields: ["id"])
+  #v1# posts: [Post] @connection(keyName: "byUser", fields: ["id"])
   #location: String!
   #bio: String
   #skills: [String!]
   #projects: [Project] @hasMany @connection(keyName: "byUser", fields: ["id"])
   #socials: [String!]
-  posts: [Post] @connection(keyName: "byUser", fields: ["id"])
 }
 
 type Post @model @key(name: "byUser", fields: ["userID"]) {
+  #v1# @key(name:"byUser",fields:["userID"])
   id: ID!
   status: Boolean!
   videoURI: String!
   desc: String!
+  userID: ID! @index(name: "byUser")
+  user: User
+  #v1# userID: ID!
+  #v1# user: User @connection(fields:["userID"])
   #likes: Int!
-  #comments: Int! @hasMany
-  #comments: [Comment] @hasMany
-  userId: ID!
-  user: User @connection(fields: ["userID"])
+  ########idk why#######comments: Int! @hasMany
+  #v1# comments: [Comment] @connection(keyName:"byPost",fields:["id"])
   #pings: [Ping] @hasMany
 }
+
+#v1# type Comment @model
+#v1# @key(name:"byPost",fields:["postID","content"])
+#{
+#  id: ID!
+#v1#  postID: ID!
+#v1# post: Post @connection(fields:["postID"])
+#  content: String!
+#}
 
 type Project @model {
   id: ID!
@@ -42,10 +55,4 @@ type Ping @model {
   id: ID!
   pinderID: ID!
   pingMessage: String!
-}
-
-type Comment @model {
-  id: ID!
-  post: Post @belongsTo
-  content: String!
 }

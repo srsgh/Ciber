@@ -4,10 +4,23 @@ import Home from '../screens/Home';
 import Posts from '../screens/Posts';
 import Profile from '../screens/Profile';
 import Pings from '../screens/Pings';
+import EditProfile from '../screens/EditProfile';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontiso from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const Tab = createBottomTabNavigator();
+
+const ProfileStack = createNativeStackNavigator();
+function ProfileStackScreen() {
+  return (
+    <ProfileStack.Navigator screenOptions={{headerShown: false}}>
+      <ProfileStack.Screen name="Profile" component={Profile} />
+      <ProfileStack.Screen name="EditProfile" component={EditProfile} />
+    </ProfileStack.Navigator>
+  );
+}
+
 const tagNavigator = () => {
   return (
     <Tab.Navigator
@@ -56,7 +69,7 @@ const tagNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
@@ -64,6 +77,16 @@ const tagNavigator = () => {
             <FontAwesome name={'user'} size={24} color={color} />
           ),
         }}
+      />
+       */}
+      <Tab.Screen
+        name="Profile"
+        options={{
+          tabBarIcon: ({color}) => (
+            <FontAwesome name={'user'} size={24} color={color} />
+          ),
+        }}
+        component={ProfileStackScreen}
       />
     </Tab.Navigator>
   );
