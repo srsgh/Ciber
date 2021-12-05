@@ -13,9 +13,9 @@ type User @model {
   #v1# posts: [Post] @connection(keyName: "byUser", fields: ["id"])
   #location: String!
   #bio: String
-  skills: [String!]
-  projects: [Project] @hasMany @connection(keyName: "byUser", fields: ["id"])
-  socials: [String!]
+  #skills: [String!]
+  #projects: [Project] @hasMany(indexName: "byUser", fields: ["id"])
+  #socials: [String!]
 }
 
 type Post @model {

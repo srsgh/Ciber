@@ -12,6 +12,7 @@ import {
 import Video from 'react-native-video';
 import Home from './src/screens/Home/index.js';
 import RootNavigation from './src/navigation/index.js';
+import {withAuthenticator} from 'aws-amplify-react-native';
 // import {SafeAreaView} from 'react-native-safe-area-context';
 const App = () => {
   return (
@@ -28,4 +29,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-export default App;
+export default withAuthenticator(App);
