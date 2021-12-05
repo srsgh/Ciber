@@ -21,7 +21,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Foundation from 'react-native-vector-icons/Foundation';
-const Profile = ({navigation}) => {
+
+const EditProfile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
   return (
     <SafeAreaView>
@@ -56,9 +57,7 @@ const Profile = ({navigation}) => {
                   New York, USA
                 </Text>
               </View>
-
               <Button
-                style={styles.res1left}
                 title="Save"
                 onPress={() => navigation.navigate('Profile')}
               />
@@ -145,6 +144,28 @@ const Profile = ({navigation}) => {
               </ScrollView>
             </View>
           </View>
+          {/* <View style={{padding: 8}}>
+            <Text style={styles.res1fn}>POSTS</Text>
+            <ScrollView style={{marginLeft: 8}}>
+              <FlatList
+                data={posts}
+                renderItem={({item}) => (
+                  <View style={styles.ping}>
+                    <View style={styles.pingRight}>
+                      <Text style={styles.handle}>@{item.user.username}</Text>
+                      <Text
+                        style={styles.message}
+                        // numberOfLines={2}
+                        // ellipsizeMode="tail"
+                      >
+                        "{item.desc}"
+                      </Text>
+                    </View>
+                  </View>
+                )}
+              />
+            </ScrollView>
+          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -233,4 +254,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default EditProfile;
