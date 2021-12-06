@@ -20,8 +20,6 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
-      skills
-      socials
       createdAt
       updatedAt
     }
@@ -42,8 +40,6 @@ export const listUsers = /* GraphQL */ `
         posts {
           nextToken
         }
-        skills
-        socials
         createdAt
         updatedAt
       }
@@ -67,8 +63,6 @@ export const getPost = /* GraphQL */ `
         posts {
           nextToken
         }
-        skills
-        socials
         createdAt
         updatedAt
       }
@@ -76,7 +70,6 @@ export const getPost = /* GraphQL */ `
         items {
           id
           content
-          senderusername
           postID
           createdAt
           updatedAt
@@ -106,8 +99,6 @@ export const listPosts = /* GraphQL */ `
           username
           email
           ppURI
-          skills
-          socials
           createdAt
           updatedAt
         }
@@ -126,7 +117,6 @@ export const getComment = /* GraphQL */ `
     getComment(id: $id) {
       id
       content
-      senderusername
       postID
       post {
         id
@@ -139,8 +129,6 @@ export const getComment = /* GraphQL */ `
           username
           email
           ppURI
-          skills
-          socials
           createdAt
           updatedAt
         }
@@ -165,7 +153,6 @@ export const listComments = /* GraphQL */ `
       items {
         id
         content
-        senderusername
         postID
         post {
           id

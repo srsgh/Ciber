@@ -20,8 +20,6 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
-      skills
-      socials
       createdAt
       updatedAt
     }
@@ -46,8 +44,6 @@ export const onUpdateUser = /* GraphQL */ `
         }
         nextToken
       }
-      skills
-      socials
       createdAt
       updatedAt
     }
@@ -72,8 +68,6 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      skills
-      socials
       createdAt
       updatedAt
     }
@@ -95,8 +89,6 @@ export const onCreatePost = /* GraphQL */ `
         posts {
           nextToken
         }
-        skills
-        socials
         createdAt
         updatedAt
       }
@@ -104,7 +96,6 @@ export const onCreatePost = /* GraphQL */ `
         items {
           id
           content
-          senderusername
           postID
           createdAt
           updatedAt
@@ -132,8 +123,6 @@ export const onUpdatePost = /* GraphQL */ `
         posts {
           nextToken
         }
-        skills
-        socials
         createdAt
         updatedAt
       }
@@ -141,7 +130,6 @@ export const onUpdatePost = /* GraphQL */ `
         items {
           id
           content
-          senderusername
           postID
           createdAt
           updatedAt
@@ -169,8 +157,6 @@ export const onDeletePost = /* GraphQL */ `
         posts {
           nextToken
         }
-        skills
-        socials
         createdAt
         updatedAt
       }
@@ -178,7 +164,6 @@ export const onDeletePost = /* GraphQL */ `
         items {
           id
           content
-          senderusername
           postID
           createdAt
           updatedAt
@@ -195,7 +180,6 @@ export const onCreateComment = /* GraphQL */ `
     onCreateComment {
       id
       content
-      senderusername
       postID
       post {
         id
@@ -208,8 +192,6 @@ export const onCreateComment = /* GraphQL */ `
           username
           email
           ppURI
-          skills
-          socials
           createdAt
           updatedAt
         }
@@ -229,7 +211,6 @@ export const onUpdateComment = /* GraphQL */ `
     onUpdateComment {
       id
       content
-      senderusername
       postID
       post {
         id
@@ -242,8 +223,6 @@ export const onUpdateComment = /* GraphQL */ `
           username
           email
           ppURI
-          skills
-          socials
           createdAt
           updatedAt
         }
@@ -263,7 +242,6 @@ export const onDeleteComment = /* GraphQL */ `
     onDeleteComment {
       id
       content
-      senderusername
       postID
       post {
         id
@@ -276,8 +254,6 @@ export const onDeleteComment = /* GraphQL */ `
           username
           email
           ppURI
-          skills
-          socials
           createdAt
           updatedAt
         }

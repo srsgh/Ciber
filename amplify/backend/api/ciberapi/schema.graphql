@@ -45,8 +45,8 @@ type Post @model {
 type Comment @model {
   id: ID!
   content: String!
-  senderusername: String!
-  postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
+  #senderusername: String
+  postID: ID! @index(name: "byPost")
   post: Post @belongsTo(fields: ["postID"])
   #v1#  postID: ID!
   #v1# post: Post @connection(fields:["postID"])

@@ -23,8 +23,6 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
-      skills
-      socials
       createdAt
       updatedAt
     }
@@ -52,8 +50,6 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
-      skills
-      socials
       createdAt
       updatedAt
     }
@@ -81,8 +77,6 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      skills
-      socials
       createdAt
       updatedAt
     }
@@ -107,8 +101,6 @@ export const createPost = /* GraphQL */ `
         posts {
           nextToken
         }
-        skills
-        socials
         createdAt
         updatedAt
       }
@@ -116,7 +108,6 @@ export const createPost = /* GraphQL */ `
         items {
           id
           content
-          senderusername
           postID
           createdAt
           updatedAt
@@ -147,8 +138,6 @@ export const updatePost = /* GraphQL */ `
         posts {
           nextToken
         }
-        skills
-        socials
         createdAt
         updatedAt
       }
@@ -156,7 +145,6 @@ export const updatePost = /* GraphQL */ `
         items {
           id
           content
-          senderusername
           postID
           createdAt
           updatedAt
@@ -187,8 +175,6 @@ export const deletePost = /* GraphQL */ `
         posts {
           nextToken
         }
-        skills
-        socials
         createdAt
         updatedAt
       }
@@ -196,7 +182,6 @@ export const deletePost = /* GraphQL */ `
         items {
           id
           content
-          senderusername
           postID
           createdAt
           updatedAt
@@ -216,7 +201,6 @@ export const createComment = /* GraphQL */ `
     createComment(input: $input, condition: $condition) {
       id
       content
-      senderusername
       postID
       post {
         id
@@ -229,8 +213,6 @@ export const createComment = /* GraphQL */ `
           username
           email
           ppURI
-          skills
-          socials
           createdAt
           updatedAt
         }
@@ -253,7 +235,6 @@ export const updateComment = /* GraphQL */ `
     updateComment(input: $input, condition: $condition) {
       id
       content
-      senderusername
       postID
       post {
         id
@@ -266,8 +247,6 @@ export const updateComment = /* GraphQL */ `
           username
           email
           ppURI
-          skills
-          socials
           createdAt
           updatedAt
         }
@@ -290,7 +269,6 @@ export const deleteComment = /* GraphQL */ `
     deleteComment(input: $input, condition: $condition) {
       id
       content
-      senderusername
       postID
       post {
         id
@@ -303,8 +281,6 @@ export const deleteComment = /* GraphQL */ `
           username
           email
           ppURI
-          skills
-          socials
           createdAt
           updatedAt
         }
