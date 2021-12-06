@@ -12,9 +12,12 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import posts from '../../assets/data/posts';
-// import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import PingItem from '../../components/PingItem';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+//import {useNavigation} from '@react-navigation/native';
 
 const Pings = ({navigation}) => {
+  // const navigation = useNavigation();
   // const tabBarHeight = useBottomTabBarHeight();
   return (
     <SafeAreaView>
@@ -25,53 +28,66 @@ const Pings = ({navigation}) => {
         <View style={styles.pings}>
           <FlatList
             data={posts}
-            renderItem={({item}) => (
-              <TouchableOpacity
-              // onPress={() => {
-              //   console.log('HEHE');
-              //   () => navigation.navigate('NYProfile');
-              // }}
-              >
-                <View style={styles.ping}>
-                  <View style={{}}>
-                    <View style={styles.pingLeft}>
-                      <Image
-                        source={{
-                          uri: item.user.ppURI,
-                        }}
-                        style={styles.image}
-                      />
-                    </View>
-                  </View>
-
-                  <View style={styles.pingRight}>
-                    <Text style={styles.handle}>@{item.user.username}</Text>
-
-                    <Text style={styles.message}>"{item.desc}"</Text>
-                    {/* <View style={styles.actions}>
-                      <Button
-                        // onPress={onAcceptPress}
-                        // title={isChecked ? 'ACCEPTED' : 'ACCEPT'}
-                        title="ACCEPT"
-                        color="black"
-                      />
-                      <Button
-                        // onPress={onRejectPress}
-                        // title={isRejected ? 'REJECTED' : 'REJECT'}
-                        // color="black"
-                        title="REJECT"
-                      />
-                    </View> */}
-                    {/*  <Text>{item.likes}</Text>
-                    <Text>{item.comments}</Text> */}
-                  </View>
-                </View>
-              </TouchableOpacity>
-            )}
+            renderItem={({item}) => <PingItem post={item} />}
           />
         </View>
       </View>
     </SafeAreaView>
+    // <SafeAreaView>
+    //   <View style={styles.baseCard}>
+    //     <View style={styles.header}>
+    //       <Text style={styles.headerTitle}>Ping Requests</Text>
+    //     </View>
+    //     <View style={styles.pings}>
+    //       <FlatList
+    //         data={posts}
+    //         renderItem={({item}) => (
+    //           <TouchableOpacity
+    //           // onPress={() => {
+    //           //   console.log('HEHE');
+    //           //   () => navigation.navigate('NYProfile');
+    //           // }}
+    //           >
+    //             <View style={styles.ping}>
+    //               <View style={{}}>
+    //                 <View style={styles.pingLeft}>
+    //                   <Image
+    //                     source={{
+    //                       uri: item.user.ppURI,
+    //                     }}
+    //                     style={styles.image}
+    //                   />
+    //                 </View>
+    //               </View>
+
+    //               <View style={styles.pingRight}>
+    //                 <Text style={styles.handle}>@{item.user.username}</Text>
+
+    //                 <Text style={styles.message}>"{item.desc}"</Text>
+    //                 {/* <View style={styles.actions}>
+    //                   <Button
+    //                     // onPress={onAcceptPress}
+    //                     // title={isChecked ? 'ACCEPTED' : 'ACCEPT'}
+    //                     title="ACCEPT"
+    //                     color="black"
+    //                   />
+    //                   <Button
+    //                     // onPress={onRejectPress}
+    //                     // title={isRejected ? 'REJECTED' : 'REJECT'}
+    //                     // color="black"
+    //                     title="REJECT"
+    //                   />
+    //                 </View> */}
+    //                 {/*  <Text>{item.likes}</Text>
+    //                 <Text>{item.comments}</Text> */}
+    //               </View>
+    //             </View>
+    //           </TouchableOpacity>
+    //         )}
+    //       />
+    //     </View>
+    //   </View>
+    // </SafeAreaView>
   );
 };
 

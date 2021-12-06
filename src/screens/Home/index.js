@@ -7,7 +7,6 @@ import {API, graphqlOperation} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries.js';
 const Home = () => {
   const tabBarHeight = useBottomTabBarHeight();
-
   //first mount
   useEffect(() => {
     console.log('Hi');

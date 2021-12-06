@@ -24,14 +24,14 @@ function ProfileStackScreen() {
     </ProfileStack.Navigator>
   );
 }
-// function PingsStackScreen() {
-//   return (
-//     <PingsStack.Navigator screenOptions={{headerShown: false}}>
-//       <PingsStack.Screen name="Pings" component={Pings} />
-//       <PingsStack.Screen name="NYProfile" component={NYProfile} />
-//     </PingsStack.Navigator>
-//   );
-// }
+function PingsStackScreen() {
+  return (
+    <PingsStack.Navigator screenOptions={{headerShown: false}}>
+      <PingsStack.Screen name="Pings" component={Pings} />
+      <PingsStack.Screen name="NYProfile" component={NYProfile} />
+    </PingsStack.Navigator>
+  );
+}
 
 const tagNavigator = () => {
   return (
@@ -53,7 +53,7 @@ const tagNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Pings"
         component={Pings}
         options={{
@@ -61,8 +61,8 @@ const tagNavigator = () => {
             <FontAwesome name={'users'} size={24} color={color} />
           ),
         }}
-      />
-      {/* <Tab.Screen
+      /> */}
+      <Tab.Screen
         name="Pings"
         options={{
           tabBarIcon: ({color}) => (
@@ -70,7 +70,8 @@ const tagNavigator = () => {
           ),
         }}
         component={PingsStackScreen}
-      /> */}
+      />
+
       <Tab.Screen
         name="Upload"
         component={Profile}

@@ -10,12 +10,14 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
+
+import PostsItem from '../../components/PostsItem';
 import posts from '../../assets/data/posts';
 const Posts = () => {
-  const [isOpen, setIsOpen] = React.useState();
-  const onClosePress = () => {
-    setIsOpen(!isOpen);
-  };
+  // const [isOpen, setIsOpen] = React.useState();
+  // const onClosePress = () => {
+  //   setIsOpen(!isOpen);
+  // };
   return (
     <SafeAreaView>
       <View style={styles.baseCard}>
@@ -24,20 +26,21 @@ const Posts = () => {
           <FlatList
             data={posts}
             renderItem={({item}) => (
-              <View style={styles.ping}>
-                <View style={styles.pingRight}>
-                  <Text style={styles.handle}>@{item.user.username}</Text>
+              // <View style={styles.ping}>
+              //   <View style={styles.pingRight}>
+              //     <Text style={styles.handle}>@{item.user.username}</Text>
 
-                  <Text style={styles.message}>"{item.desc}"</Text>
-                  <View>
-                    <Button
-                      onPress={onClosePress}
-                      title={isOpen ? 'CLOSE' : 'CLOSED'}
-                      // color="black"
-                    />
-                  </View>
-                </View>
-              </View>
+              //     <Text style={styles.message}>"{item.desc}"</Text>
+              //     <View>
+              //       <Button
+              //         onPress={onClosePress}
+              //         title={isOpen ? 'CLOSE' : 'CLOSED'}
+              //         // color="black"
+              //       />
+              //     </View>
+              //   </View>
+              // </View>
+              <PostsItem post={item} />
             )}
           />
         </View>

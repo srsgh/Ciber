@@ -33,6 +33,11 @@ const NYProfile = ({navigation}) => {
           height: Dimensions.get('window').height - tabBarHeight,
         }}>
         <Text style={styles.header}>creatorname</Text>
+        <Button
+          title="Back to Ping Requests"
+          color="black"
+          onPress={() => navigation.navigate('Pings')}
+        />
         <View style={styles.resume}>
           <View style={styles.res1}>
             <View>
