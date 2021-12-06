@@ -18,16 +18,14 @@ const PingItem = props => {
   const doThis = async () => {
     try {
       const response = await navigation.navigate('NYProfile');
-      console.log('got it');
     } catch (e) {
       console.error(e);
     }
   };
-
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log('HI ' + localPost.user.username);
+        // console.log('HI ' + localPost.user.username);
         doThis();
       }}>
       <View style={styles.ping}>
