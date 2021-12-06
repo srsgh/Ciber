@@ -14,22 +14,24 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import posts from '../../assets/data/posts';
 // import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
-const Pings = () => {
+const Pings = ({navigation}) => {
   // const tabBarHeight = useBottomTabBarHeight();
   return (
     <SafeAreaView>
       <View style={styles.baseCard}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Ping Requests</Text>
-          {/* <TouchableOpacity>
-            <FontAwesome name={'inbox'} size={32} color="black" />
-          </TouchableOpacity> */}
         </View>
         <View style={styles.pings}>
           <FlatList
             data={posts}
             renderItem={({item}) => (
-              <TouchableOpacity>
+              <TouchableOpacity
+              // onPress={() => {
+              //   console.log('HEHE');
+              //   () => navigation.navigate('NYProfile');
+              // }}
+              >
                 <View style={styles.ping}>
                   <View style={{}}>
                     <View style={styles.pingLeft}>
@@ -45,13 +47,7 @@ const Pings = () => {
                   <View style={styles.pingRight}>
                     <Text style={styles.handle}>@{item.user.username}</Text>
 
-                    <Text
-                      style={styles.message}
-                      // numberOfLines={2}
-                      // ellipsizeMode="tail"
-                    >
-                      "{item.desc}"
-                    </Text>
+                    <Text style={styles.message}>"{item.desc}"</Text>
                     {/* <View style={styles.actions}>
                       <Button
                         // onPress={onAcceptPress}

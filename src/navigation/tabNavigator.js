@@ -5,13 +5,17 @@ import Posts from '../screens/Posts';
 import Profile from '../screens/Profile';
 import Pings from '../screens/Pings';
 import EditProfile from '../screens/EditProfile';
+import NYProfile from '../screens/NYProfile';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontiso from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 const Tab = createBottomTabNavigator();
 
 const ProfileStack = createNativeStackNavigator();
+const PingsStack = createNativeStackNavigator();
+
 function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator screenOptions={{headerShown: false}}>
@@ -20,6 +24,14 @@ function ProfileStackScreen() {
     </ProfileStack.Navigator>
   );
 }
+// function PingsStackScreen() {
+//   return (
+//     <PingsStack.Navigator screenOptions={{headerShown: false}}>
+//       <PingsStack.Screen name="Pings" component={Pings} />
+//       <PingsStack.Screen name="NYProfile" component={NYProfile} />
+//     </PingsStack.Navigator>
+//   );
+// }
 
 const tagNavigator = () => {
   return (
@@ -50,7 +62,15 @@ const tagNavigator = () => {
           ),
         }}
       />
-
+      {/* <Tab.Screen
+        name="Pings"
+        options={{
+          tabBarIcon: ({color}) => (
+            <FontAwesome name={'users'} size={24} color={color} />
+          ),
+        }}
+        component={PingsStackScreen}
+      /> */}
       <Tab.Screen
         name="Upload"
         component={Profile}

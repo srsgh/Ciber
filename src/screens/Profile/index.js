@@ -25,7 +25,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {Auth} from 'aws-amplify';
 const Profile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
-  //logout service by aws
+  //logout service by aws: check
   const logout = async () => {
     try {
       await Auth.signOut();

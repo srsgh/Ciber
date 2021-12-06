@@ -33,7 +33,7 @@ const Posts = () => {
                     <Button
                       onPress={onClosePress}
                       title={isOpen ? 'CLOSE' : 'CLOSED'}
-                      color="black"
+                      // color="black"
                     />
                   </View>
                 </View>
