@@ -10,6 +10,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontiso from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Camera from '../screens/Camera';
 
 const Tab = createBottomTabNavigator();
 
@@ -74,7 +75,7 @@ const tagNavigator = () => {
 
       <Tab.Screen
         name="Upload"
-        component={Profile}
+        component={Camera}
         options={{
           tabBarIcon: ({color}) => (
             <FontAwesome name={'video-camera'} size={24} color={color} />

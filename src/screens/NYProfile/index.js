@@ -14,14 +14,9 @@ import {
   Button,
   Linking,
 } from 'react-native';
-import posts from '../../assets/data/posts';
-import Video from 'react-native-video';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Foundation from 'react-native-vector-icons/Foundation';
-
 const NYProfile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
   return (
@@ -34,7 +29,7 @@ const NYProfile = ({navigation}) => {
         }}>
         <Text style={styles.header}>creatorname</Text>
         <Button
-          title="Back to Ping Requests"
+          title="Go Back "
           color="black"
           onPress={() => navigation.navigate('Pings')}
         />

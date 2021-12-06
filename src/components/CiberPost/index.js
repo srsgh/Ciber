@@ -15,6 +15,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/native';
 import PingBox from '../../components/PingBox';
+import NYProfile from '../../screens/NYProfile';
 const Post = props => {
   const navigation = useNavigation();
   const [localPost, setLocalPost] = React.useState(props.post);
@@ -39,6 +40,17 @@ const Post = props => {
       console.log('PINGED!');
       // const response = await navigation.navigate('PingBox');
       console.log('PING END!');
+    } catch (e) {
+      console.error(e);
+    }
+    setIsPinged(!isPinged);
+  };
+  const goToUser = async () => {
+    //view poster's profile
+    try {
+      console.log('here we go!');
+      const response = await navigation.navigate('NYProfile');
+      console.log('we back!');
     } catch (e) {
       console.error(e);
     }
@@ -79,7 +91,7 @@ const Post = props => {
         </View>
         <View style={styles.bottomSide}>
           <View style={styles.side}>
-            <View style={styles.options}>
+            <TouchableOpacity style={styles.options} onPress={goToUser}>
               <Image
                 source={{
                   uri: localPost.user.ppURI,
@@ -87,7 +99,7 @@ const Post = props => {
                 style={styles.image}
               />
               <Text style={styles.stats}></Text>
-            </View>
+            </TouchableOpacity>
             <TouchableOpacity
               disabled={localPost.status ? true : false}
               style={styles.options}
