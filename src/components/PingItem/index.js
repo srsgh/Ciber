@@ -12,20 +12,23 @@ import {
   Button,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import posts from '../../assets/data/posts';
-// import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-
 const PingItem = props => {
-  //   console.log(props);
-  // const tabBarHeight = useBottomTabBarHeight();
   const [localPost, setLocalPost] = React.useState(props.post);
   const navigation = useNavigation();
+  const doThis = async () => {
+    try {
+      const response = await navigation.navigate('NYProfile');
+      console.log('got it');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <TouchableOpacity
       onPress={() => {
         console.log('HI ' + localPost.user.username);
-        // () => navigation.navigate('NYProfile');
+        doThis();
       }}>
       <View style={styles.ping}>
         <View style={{}}>
@@ -37,12 +40,6 @@ const PingItem = props => {
               style={styles.image}
             />
           </View>
-          {/* <Pressable
-            onPress={() => {
-              Linking.openURL('https://github.com/');
-            }}>
-            <Text style={styles.projectTitleName}>Github</Text>
-          </Pressable> */}
         </View>
 
         <View style={styles.pingRight}>
