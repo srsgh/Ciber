@@ -1,20 +1,24 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, FlatList, View, Dimensions} from 'react-native';
-import posts from '../../assets/data/posts';
+// import posts from '../../assets/data/posts';
 import Post from '../../components/CiberPost';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+
 import {API, graphqlOperation} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries.js';
+
 const Home = () => {
   const tabBarHeight = useBottomTabBarHeight();
-  //first mount
+  const [posts, setPosts] = React.useState([]);
+  //at first mount
   useEffect(() => {
-    console.log('Hi');
     const fetchPost = async () => {
       //fetching all posts
       try {
         const response = await API.graphql(graphqlOperation(listPosts));
-        console.log(response);
+        //set the data
+        setPosts(response.data.listPosts.items);
+        console.log(response); ////////////CHANGE
       } catch (e) {
         console.error(e);
       }

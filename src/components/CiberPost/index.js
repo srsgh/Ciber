@@ -13,7 +13,10 @@ import Video from 'react-native-video';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import {useNavigation} from '@react-navigation/native';
+import PingBox from '../../components/PingBox';
 const Post = props => {
+  const navigation = useNavigation();
   const [localPost, setLocalPost] = React.useState(props.post);
   const [isPaused, setIsPaused] = React.useState(false);
   const [isPinged, setIsPinged] = React.useState(false);
@@ -30,10 +33,18 @@ const Post = props => {
     });
     setIsLiked(!isLiked);
   };
-  const onPingPress = () => {
+  const onPingPress = async () => {
     //update the actual pings list for the post then
+    try {
+      console.log('PINGED!');
+      // const response = await navigation.navigate('PingBox');
+      console.log('PING END!');
+    } catch (e) {
+      console.error(e);
+    }
     setIsPinged(!isPinged);
   };
+
   return (
     <View
       style={{
@@ -77,13 +88,22 @@ const Post = props => {
               />
               <Text style={styles.stats}></Text>
             </View>
-            <TouchableOpacity style={styles.options} onPress={onPingPress}>
+            <TouchableOpacity
+              disabled={localPost.status ? true : false}
+              style={styles.options}
+              onPress={onPingPress}>
               <FontAwesome5
                 name={'hands-helping'}
                 size={35}
-                color={isPinged ? '#149EF0' : '#eeeeee'}
+                color={
+                  localPost.status
+                    ? 'transparent'
+                    : isPinged
+                    ? '#149EF0'
+                    : '#eeeeee'
+                }
               />
-              <Text style={styles.stats}>PING</Text>
+              <Text textColor={localPost.status ? '#0000ffff' : 'white'}></Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.options} onPress={onLikePress}>
               <FontAwesome
@@ -95,7 +115,7 @@ const Post = props => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.options}>
               <FontAwesome name={'commenting'} size={35} color="white" />
-              <Text style={styles.stats}>{localPost.comments}</Text>
+              <Text style={styles.stats}>{localPost.comment}</Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.handle}>@{localPost.user.username}</Text>

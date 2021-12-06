@@ -23,6 +23,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Foundation from 'react-native-vector-icons/Foundation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Auth} from 'aws-amplify';
+
 const Profile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
   //logout service by aws: check
@@ -33,6 +34,7 @@ const Profile = ({navigation}) => {
       console.log('error siginng out', err);
     }
   };
+
   return (
     <SafeAreaView>
       <ScrollView
@@ -68,7 +70,15 @@ const Profile = ({navigation}) => {
               </View>
               <Button
                 title="Edit"
-                onPress={() => navigation.navigate('EditProfile')}
+                onPress={() => {
+                  navigation.navigate('EditProfile');
+                  // //current user status
+                  // Auth.currentAuthenticatedUser({
+                  //   bypassCache: false,
+                  // })
+                  //   .then(user => console.log(user))
+                  //   .catch(err => console.log(err));
+                }}
               />
             </View>
           </View>

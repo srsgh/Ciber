@@ -8,14 +8,16 @@ type User @model {
   username: String!
   email: String!
   ppURI: String
-  #posts: [Post] @hasMany(index: "byUser", fields: ["id"])
+    @default(
+      value: "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"
+    )
   posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
   #v1# posts: [Post] @connection(keyName: "byUser", fields: ["id"])
-  #location: String!
-  #bio: String
-  #skills: [String!]
-  #projects: [Project] @hasMany(indexName: "byUser", fields: ["id"])
-  #socials: [String!]
+  location: String @default(value: "")
+  bio: String @default(value: "Let other creators know more about you.")
+  skills: String @default(value: "")
+  socials: [Socials] @hasMany(indexName: "byUser", fields: ["id"])
+  projects: [Project] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
 type Post @model {
@@ -25,46 +27,65 @@ type Post @model {
   status: Boolean!
   videoURI: String!
   desc: String!
-  #  userID: ID! @index(name: "byUser")
-  #  user: User
   userID: ID! @index(name: "byUser")
   user: User @belongsTo(fields: ["userID"])
   #v1# userID: ID!
   #v1# user: User @connection(fields:["userID"])
-  #likes: Int!
-  #pings: [Ping]
-  ########idk why#######comments: Int! @hasMany
+  likes: Int @default(value: "0")
+  comment: Int @default(value: "0")
+  pings: [Ping] @hasMany(indexName: "byPost", fields: ["id"])
   comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
   #v1# comments: [Comment] @connection(keyName:"byPost",fields:["id"])
-  #pings: [Ping] @hasMany
+  categories: [Category] @manyToMany(relationName: "PostCategories")
+}
+
+type Category @model {
+  id: ID!
+  label: String!
+  posts: [Post] @manyToMany(relationName: "PostCategories")
+}
+
+type Ping @model {
+  #goes to postID's userID
+  id: ID!
+  pingerID: ID!
+  pingMessage: String!
+  postID: ID! @index(name: "byPost", sortKeyFields: ["pingerID"])
+  post: Post @belongsTo(fields: ["postID"])
+}
+
+type Socials @model {
+  id: ID!
+  social: String!
+  link: String!
+  userID: ID! @index(name: "byUser", sortKeyFields: ["social"])
+  user: User @belongsTo(fields: ["userID"])
+}
+
+type Project @model {
+  id: ID!
+  name: String!
+  desc: String!
+  link: String!
+  userID: ID! @index(name: "byUser", sortKeyFields: ["name"])
+  user: User @belongsTo(fields: ["userID"])
+  tags: [Tag] @manyToMany(relationName: "ProjectTags")
+}
+
+type Tag @model {
+  id: ID!
+  label: String!
+  projects: [Project] @manyToMany(relationName: "ProjectTags")
 }
 
 #v1# type Comment @model
 #v1# @key(name:"byPost",fields:["postID","content"])
-#
 type Comment @model {
   id: ID!
   content: String!
-  #senderusername: String
+  senderusername: String!
   postID: ID! @index(name: "byPost")
   post: Post @belongsTo(fields: ["postID"])
   #v1#  postID: ID!
   #v1# post: Post @connection(fields:["postID"])
 }
-
-#type Project @model {
-# id: ID!
-# name: String!
-# desc: String!
-# links: String!
-# tags: [Tag]
-# projectID: ID!
-#}
-
-#type Ping @model {
-#goes to postID's userID
-#id: ID!
-# pingerID: ID!
-#postID: ID!
-#pingMessage: String!
-#}
