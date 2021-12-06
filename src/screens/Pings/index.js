@@ -21,9 +21,9 @@ const Pings = () => {
       <View style={styles.baseCard}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Ping Requests</Text>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <FontAwesome name={'inbox'} size={32} color="black" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={styles.pings}>
           <FlatList

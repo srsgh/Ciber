@@ -4,17 +4,24 @@ import posts from '../../assets/data/posts';
 import Post from '../../components/CiberPost';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {API, graphqlOperation} from 'aws-amplify';
-import {listPosts} from '../../graphql/queries';
+import {listPosts} from '../../graphql/queries.js';
 const Home = () => {
   const tabBarHeight = useBottomTabBarHeight();
 
   //first mount
   useEffect(() => {
-    effect;
-    return () => {
-      cleanup;
+    console.log('Hi');
+    const fetchPost = async () => {
+      //fetching all posts
+      try {
+        const response = await API.graphql(graphqlOperation(listPosts));
+        console.log(response);
+      } catch (e) {
+        console.error(e);
+      }
     };
-  }, [input]);
+    fetchPost();
+  }, []);
 
   return (
     <View>

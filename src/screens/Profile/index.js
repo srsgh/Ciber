@@ -21,9 +21,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Foundation from 'react-native-vector-icons/Foundation';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Auth} from 'aws-amplify';
 const Profile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
+  //logout service by aws
+  const logout = async () => {
+    try {
+      await Auth.signOut();
+    } catch (err) {
+      console.log('error siginng out', err);
+    }
+  };
   return (
     <SafeAreaView>
       <ScrollView
@@ -32,7 +41,12 @@ const Profile = ({navigation}) => {
           backgroundColor: 'white',
           height: Dimensions.get('window').height - tabBarHeight,
         }}>
-        <Text style={styles.header}>creatorname</Text>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>creatorname</Text>
+          <TouchableOpacity onPress={logout}>
+            <MaterialCommunityIcons name={'logout'} size={32} color="black" />
+          </TouchableOpacity>
+        </View>
         <View style={styles.resume}>
           <View style={styles.res1}>
             <View>
@@ -169,11 +183,24 @@ const Profile = ({navigation}) => {
 
 const styles = StyleSheet.create({
   header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 8,
+  },
+  headerTitle: {
     fontWeight: 'bold',
     fontSize: 24,
-    padding: 8,
+    // padding: 8,
     color: 'black',
+    //#149EF0
   },
+  // header: {
+  //   fontWeight: 'bold',
+  //   fontSize: 24,
+  //   padding: 8,
+  //   color: 'black',
+  // },
   image: {
     width: 100,
     height: 100,
