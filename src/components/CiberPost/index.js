@@ -52,9 +52,9 @@ const Post = props => {
   const onPingPress = async () => {
     //update the actual pings list for the post then
     try {
-      console.log('PINGED!');
-      // const response = await navigation.navigate('PingBox');
-      console.log('PING END!');
+      // console.log('PINGED!');
+      navigation.navigate('PingBox', {post: localPost});
+      // console.log('PING END!');
     } catch (e) {
       console.error(e);
     }
@@ -69,7 +69,7 @@ const Post = props => {
     } catch (e) {
       console.error(e);
     }
-    setIsPinged(!isPinged);
+    // setIsPinged(!isPinged);
   };
 
   return (

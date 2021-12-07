@@ -12,11 +12,14 @@ import Fontiso from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Camera from '../screens/Camera';
 import Publish from '../screens/Publish';
+import CiberPost from '../components/CiberPost';
+import PingBox from '../components/PingBox';
 const Tab = createBottomTabNavigator();
 
 const ProfileStack = createNativeStackNavigator();
 const PingsStack = createNativeStackNavigator();
 const UploadStack = createNativeStackNavigator();
+const ExploreStack = createNativeStackNavigator();
 function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator screenOptions={{headerShown: false}}>
@@ -41,6 +44,14 @@ function UploadStackScreen() {
     </UploadStack.Navigator>
   );
 }
+function ExploreStackScreen() {
+  return (
+    <ExploreStack.Navigator screenOptions={{headerShown: false}}>
+      <ExploreStack.Screen name="Home" component={Home} />
+      <ExploreStack.Screen name="PingBox" component={PingBox} />
+    </ExploreStack.Navigator>
+  );
+}
 const tagNavigator = () => {
   return (
     <Tab.Navigator
@@ -52,7 +63,7 @@ const tagNavigator = () => {
         activeTintColor: 'white',
       }}
       screenOptions={{headerShown: false}}>
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Explore"
         component={Home}
         options={{
@@ -60,7 +71,17 @@ const tagNavigator = () => {
             <Fontiso name={'earth'} size={24} color={color} />
           ),
         }}
+      />  */}
+      <Tab.Screen
+        name="Explore"
+        options={{
+          tabBarIcon: ({color}) => (
+            <Fontiso name={'earth'} size={24} color={color} />
+          ),
+        }}
+        component={ExploreStackScreen}
       />
+
       {/* <Tab.Screen
         name="Pings"
         component={Pings}
