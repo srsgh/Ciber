@@ -14,15 +14,25 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/native';
+import {Storage} from 'aws-amplify';
 import PingBox from '../../components/PingBox';
 import NYProfile from '../../screens/NYProfile';
 const Post = props => {
   const navigation = useNavigation();
   const [localPost, setLocalPost] = React.useState(props.post);
+  const [videoURI, setVideoURI] = React.useState('');
   const [isPaused, setIsPaused] = React.useState(false);
   const [isPinged, setIsPinged] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
   const tabBarHeight = useBottomTabBarHeight();
+  useEffect(() => {
+    setVideoURI();
+  }, []);
+  //fetch VideoUri from Storage for VideoKey(as VideoUri in DynamoDB)
+  const getVideoURI = async () => {
+    if (localPost.videoURI.startsWith('http')) setVideoURI(localPost.videoURI);
+    setVideoURI(await Storage.get(localPost.videoUri));
+  };
   const onVideoPress = () => {
     setIsPaused(!isPaused);
   };
@@ -67,7 +77,7 @@ const Post = props => {
       <TouchableWithoutFeedback onPress={onVideoPress}>
         <Video
           source={{
-            uri: localPost.videoURI,
+            uri: videoURI,
           }}
           style={styles.video}
           resizeMode={'cover'}
