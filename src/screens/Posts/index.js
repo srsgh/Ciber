@@ -40,7 +40,6 @@ const Posts = () => {
         // const response = await API.graphql(graphqlOperation(listComments));
         //set the data
         setPosts(response.data.listPosts.items);
-        console.log(response); ////////////CHANGE
       } catch (e) {
         console.error(e);
       }

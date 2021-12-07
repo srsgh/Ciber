@@ -17,8 +17,36 @@ import {
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {API, graphqlOperation, Auth} from 'aws-amplify';
+import {getUser} from '../../graphql/queries';
+
 const NYProfile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
+
+  // React.useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     //fetching fitered comments for this post
+  //     try {
+  //       // Query with filters, limits, and pagination
+  //       let filter = {
+  //         userID: {
+  //           eq: userInfo.attributes.sub, // filter priority = 1
+  //         },
+  //       };
+  //       const response = await API.graphql({
+  //         query: listPosts,
+  //         variables: {filter: filter},
+  //       });
+  //       // const response = await API.graphql(graphqlOperation(listComments));
+  //       //set the data
+  //       setPosts(response.data.listPosts.items);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   };
+  //   fetchPosts();
+  // }, []);
+
   return (
     <SafeAreaView>
       <ScrollView

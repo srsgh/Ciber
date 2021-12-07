@@ -19,18 +19,37 @@ import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Auth} from 'aws-amplify';
+import {API, graphqlOperation, Auth} from 'aws-amplify';
+import {getUser} from '../../graphql/queries';
 
 const Profile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
+  const [localUser, setLocalUser] = React.useState([]);
   //logout service by aws: check
   const logout = async () => {
     try {
       await Auth.signOut();
     } catch (err) {
-      console.log('error siginng out', err);
+      console.log('error signing out', err);
     }
   };
+
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userInfo = await Auth.currentAuthenticatedUser();
+        console.log(userInfo);
+        const response = await API.graphql(
+          graphqlOperation(getUser, {id: userInfo.attributes.sub}),
+        );
+        //set the data locally
+        setLocalUser(response.data.getUser);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchUser();
+  }, []);
 
   return (
     <SafeAreaView>
@@ -41,7 +60,7 @@ const Profile = ({navigation}) => {
           height: Dimensions.get('window').height - tabBarHeight,
         }}>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>creatorname</Text>
+          <Text style={styles.headerTitle}>{localUser.username}</Text>
           <TouchableOpacity onPress={logout}>
             <MaterialCommunityIcons name={'logout'} size={32} color="black" />
           </TouchableOpacity>
@@ -51,40 +70,37 @@ const Profile = ({navigation}) => {
             <View>
               <Image
                 source={{
-                  uri: 'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+                  uri: localUser.ppURI,
                 }}
                 style={styles.image}
               />
             </View>
             <View style={styles.res1left}>
-              <Text style={styles.res1fn}>Elon Musk</Text>
-              <Text style={styles.res1job}>Web Designer UI</Text>
+              <Text style={styles.res1fn}>
+                {localUser.fullname ? localUser.fullname : localUser.username}
+              </Text>
+              <Text style={styles.res1job}>
+                {localUser.job ? localUser.job : 'Profession'}
+              </Text>
               <View style={styles.res1loc}>
                 <Ionicons name={'ios-location'} size={13} />
                 <Text style={{fontSize: 13, color: '#545454'}}>
-                  New York, USA
+                  {localUser.location
+                    ? localUser.location
+                    : 'Location City, State'}
                 </Text>
               </View>
               <Button
                 title="Edit"
                 onPress={() => {
                   navigation.navigate('EditProfile');
-                  //current user status
-                  Auth.currentAuthenticatedUser({
-                    bypassCache: false,
-                  })
-                    .then(user => console.log(user))
-                    .catch(err => console.log(err));
                 }}
               />
             </View>
           </View>
           <View style={styles.res1}>
             <Text style={{fontSize: 16, color: '#545454'}}>
-              Elon Reeve Musk FRS is an entrepreneur and business magnate. He is
-              the founder, CEO, and Chief Engineer at SpaceX; early-stage
-              investor, CEO, and Product Architect of Tesla, Inc.; founder of
-              The Boring Company; and co-founder of Neuralink and OpenAI.
+              {localUser.bio}
             </Text>
           </View>
           {/* <View style={{padding: 8}}>
@@ -98,9 +114,9 @@ const Profile = ({navigation}) => {
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               {/* <Fontisto name={'python'} size={16} /> */}
-              <Text style={{fontSize: 16, color: '#545454'}}>Python, </Text>
-              <Text style={{fontSize: 16, color: '#545454'}}>Python, </Text>
-              <Text style={{fontSize: 16, color: '#545454'}}>Python</Text>
+              <Text style={{fontSize: 16, color: '#545454'}}>
+                {localUser.skills}
+              </Text>
             </View>
           </View>
           <View style={styles.projects}>
@@ -108,10 +124,10 @@ const Profile = ({navigation}) => {
             <View style={styles.project}>
               <View style={styles.res1left}>
                 <View style={styles.projectTitle}>
-                  <Text style={styles.projectTitleName}>Space X</Text>
+                  <Text style={styles.projectTitleName}>Ciber X</Text>
                   <Pressable
                     onPress={() => {
-                      Linking.openURL('https://github.com/srsgh/fsd-q12.git');
+                      Linking.openURL('https://github.com/srsgh/ciber.git');
                     }}>
                     <FontAwesome
                       name="external-link"
@@ -121,14 +137,15 @@ const Profile = ({navigation}) => {
                   </Pressable>
                 </View>
                 <Text style={styles.res1job}>
-                  Space Exploration Technologies Corp. is an American aerospace
-                  manufacturer, space transportation services and communications
-                  corporation headquartered in Hawthorne, California.
+                  Ciber is a react native application built for easily finding
+                  creators with similar interests to collaborate on your next
+                  big hackathon. Finding team mates and community issue
+                  resolutions are now easy.
                 </Text>
                 <View style={styles.res1loc}>
                   <FontAwesome name={'hashtag'} size={13} />
                   <Text style={{fontSize: 13, color: '#545454'}}>
-                    Aerospace
+                    ReactNative
                   </Text>
                 </View>
               </View>
@@ -140,48 +157,19 @@ const Profile = ({navigation}) => {
               <ScrollView horizontal={true} style={{marginLeft: 8}}>
                 <Pressable
                   onPress={() => {
-                    Linking.openURL('https://github.com/');
+                    Linking.openURL(
+                      'https://mail.google.com/mail/?view=cm&fs=1&to=' +
+                        `${localUser.email}` +
+                        '&su=SUBJECT&body=BODY',
+                    );
                   }}>
-                  <Text style={styles.projectTitleName}>Github</Text>
-                </Pressable>
-
-                <Pressable
-                  onPress={() => {
-                    Linking.openURL('https://twitter.com/elonmusk');
-                  }}>
-                  <Text style={styles.projectTitleName}>Twitter</Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    Linking.openURL('https://twitter.com/elonmusk');
-                  }}>
-                  <Text style={styles.projectTitleName}>LinkedIn</Text>
+                  <Text style={styles.projectTitleName}>
+                    {localUser.skills ? localUser.skills : localUser.email}
+                  </Text>
                 </Pressable>
               </ScrollView>
             </View>
           </View>
-          {/* <View style={{padding: 8}}>
-            <Text style={styles.res1fn}>POSTS</Text>
-            <ScrollView style={{marginLeft: 8}}>
-              <FlatList
-                data={posts}
-                renderItem={({item}) => (
-                  <View style={styles.ping}>
-                    <View style={styles.pingRight}>
-                      <Text style={styles.handle}>@{item.user.username}</Text>
-                      <Text
-                        style={styles.message}
-                        // numberOfLines={2}
-                        // ellipsizeMode="tail"
-                      >
-                        "{item.desc}"
-                      </Text>
-                    </View>
-                  </View>
-                )}
-              />
-            </ScrollView>
-          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>
