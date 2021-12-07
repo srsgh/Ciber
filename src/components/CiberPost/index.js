@@ -60,6 +60,13 @@ const Post = props => {
     }
     setIsPinged(!isPinged);
   };
+  const onCommentsPress = async () => {
+    try {
+      navigation.navigate('Comments', {post: localPost});
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const goToUser = async () => {
     //view poster's profile
     try {
@@ -140,7 +147,7 @@ const Post = props => {
               />
               <Text style={styles.stats}>{localPost.likes}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.options}>
+            <TouchableOpacity style={styles.options} onPress={onCommentsPress}>
               <FontAwesome name={'commenting'} size={35} color="white" />
               <Text style={styles.stats}>{localPost.comment}</Text>
             </TouchableOpacity>

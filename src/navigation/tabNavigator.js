@@ -14,6 +14,7 @@ import Camera from '../screens/Camera';
 import Publish from '../screens/Publish';
 import CiberPost from '../components/CiberPost';
 import PingBox from '../components/PingBox';
+import Comments from '../screens/Comments';
 const Tab = createBottomTabNavigator();
 
 const ProfileStack = createNativeStackNavigator();
@@ -49,6 +50,7 @@ function ExploreStackScreen() {
     <ExploreStack.Navigator screenOptions={{headerShown: false}}>
       <ExploreStack.Screen name="Home" component={Home} />
       <ExploreStack.Screen name="PingBox" component={PingBox} />
+      <ExploreStack.Screen name="Comments" component={Comments} />
     </ExploreStack.Navigator>
   );
 }
