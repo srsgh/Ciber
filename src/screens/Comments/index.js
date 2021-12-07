@@ -29,7 +29,7 @@ const Comments = ({navigation}) => {
   const [comments, setComments] = React.useState([]);
   React.useEffect(() => {
     const fetchComments = async () => {
-      //fetching all comments
+      //fetching fitered comments for this post
       try {
         // Query with filters, limits, and pagination
         let filter = {
@@ -41,11 +41,10 @@ const Comments = ({navigation}) => {
           query: listComments,
           variables: {filter: filter},
         });
-
         // const response = await API.graphql(graphqlOperation(listComments));
         //set the data
         setComments(response.data.listComments.items);
-        console.log(response); ////////////CHANGE
+        //console.log(response); ////////////CHANGE
       } catch (e) {
         console.error(e);
       }

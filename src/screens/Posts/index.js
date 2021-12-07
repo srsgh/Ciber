@@ -10,14 +10,44 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
-
+import {API, graphqlOperation, Auth} from 'aws-amplify';
+import {listPosts} from '../../graphql/queries';
 import PostsItem from '../../components/PostsItem';
-import posts from '../../assets/data/posts';
+
 const Posts = () => {
   // const [isOpen, setIsOpen] = React.useState();
   // const onClosePress = () => {
   //   setIsOpen(!isOpen);
   // };
+  //get all the posts of this user
+  const [posts, setPosts] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchPosts = async () => {
+      //fetching fitered comments for this post
+      try {
+        const userInfo = await Auth.currentAuthenticatedUser();
+        // Query with filters, limits, and pagination
+        let filter = {
+          userID: {
+            eq: userInfo.attributes.sub, // filter priority = 1
+          },
+        };
+        const response = await API.graphql({
+          query: listPosts,
+          variables: {filter: filter},
+        });
+        // const response = await API.graphql(graphqlOperation(listComments));
+        //set the data
+        setPosts(response.data.listPosts.items);
+        console.log(response); ////////////CHANGE
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchPosts();
+  }, []);
+
   return (
     <SafeAreaView>
       <View style={styles.baseCard}>
@@ -25,23 +55,7 @@ const Posts = () => {
         <View style={styles.pings}>
           <FlatList
             data={posts}
-            renderItem={({item}) => (
-              // <View style={styles.ping}>
-              //   <View style={styles.pingRight}>
-              //     <Text style={styles.handle}>@{item.user.username}</Text>
-
-              //     <Text style={styles.message}>"{item.desc}"</Text>
-              //     <View>
-              //       <Button
-              //         onPress={onClosePress}
-              //         title={isOpen ? 'CLOSE' : 'CLOSED'}
-              //         // color="black"
-              //       />
-              //     </View>
-              //   </View>
-              // </View>
-              <PostsItem post={item} />
-            )}
+            renderItem={({item}) => <PostsItem post={item} />}
           />
         </View>
       </View>

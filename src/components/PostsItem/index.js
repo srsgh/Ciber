@@ -16,7 +16,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import posts from '../../assets/data/posts';
 // import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
-const PingItem = props => {
+const PostsItem = props => {
   // const tabBarHeight = useBottomTabBarHeight();
   const [localPost, setLocalPost] = React.useState(props.post);
   const navigation = useNavigation();
@@ -24,6 +24,7 @@ const PingItem = props => {
   const onClosePress = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <View style={styles.ping}>
       <View style={styles.pingRight}>
@@ -42,7 +43,7 @@ const PingItem = props => {
   );
 };
 
-export default PingItem;
+export default PostsItem;
 
 const styles = StyleSheet.create({
   header: {
