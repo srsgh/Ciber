@@ -30,7 +30,8 @@
     "react-native-screens": "^3.9.0",
     "react-native-vector-icons": "^9.0.0",
     "react-native-video": "^5.2.0",
-    "use-auto-focus-inputs": "^0.1.0"
+    "use-auto-focus-inputs": "^0.1.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",

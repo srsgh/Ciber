@@ -16,5 +16,11 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientIDWeb": "string",
             "AppClientID": "string"
         }
+    },
+    "storage": {
+        "cibers3": {
+            "BucketName": "string",
+            "Region": "string"
+        }
     }
 }

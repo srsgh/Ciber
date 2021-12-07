@@ -1,0 +1,16 @@
+{
+  "resourceName": "cibers3",
+  "policyUUID": "c4ca5bea",
+  "bucketName": "ciber9d89ce59c3f94f91ab07015859c091ae",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

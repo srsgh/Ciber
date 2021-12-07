@@ -14,15 +14,62 @@ import {
   Button,
   Linking,
 } from 'react-native';
+
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {useRoute} from '@react-navigation/native';
+import {v4 as uuidv4} from 'uuid'; //To create a random UUID...
+import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
+import {createPost} from '../../graphql/mutations';
 const Publish = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
   const [desc, setDesc] = React.useState(
     'Enter a short description for this video.',
   );
-  const onPublish = ({navigation}) => {};
+  const [videoKey, setVideoKey] = React.useState(null);
+  const route = useRoute();
+  //upload to s3 in aws
+  const uploading = async imagePath => {
+    try {
+      const response = await fetch(imagePath);
+      const blob = await response.blob();
+      //Create a UUID
+      const filename = `${uuidv4()}.mp4`;
+      const s3Response = await Storage.put(filename, blob);
+      setVideoKey(s3Response.key);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  React.useEffect(() => {
+    uploading(route.params.videoUri);
+  }, []);
+
+  //create post in db API
+  const onPublish = async () => {
+    if (!videoKey) {
+      console.warn('Uploading in process, Breathe...');
+      return;
+    }
+    try {
+      const userInfo = await Auth.currentAuthenticatedUser();
+      const newPost = {
+        videoURI: videoKey, /////not exactly right
+        desc: desc,
+        status: false,
+        userID: userInfo.attributes.sub,
+      };
+      const response = await API.graphql(
+        graphqlOperation(createPost, {input: newPost}),
+      );
+      //go back
+      navigation.navigate('Camera');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <SafeAreaView>
       <View
@@ -85,11 +132,6 @@ const styles = StyleSheet.create({
 
   description: {
     margin: 8,
-    // backgroundColor: 'pink',
-    // borderTopColor: 'gray',
-    // borderTopWidth: 0.5,
-    // borderBottomColor: 'gray',
-    // borderBottomWidth: 0.5,
   },
   desc: {
     padding: 8,

@@ -72,12 +72,12 @@ const Profile = ({navigation}) => {
                 title="Edit"
                 onPress={() => {
                   navigation.navigate('EditProfile');
-                  // //current user status
-                  // Auth.currentAuthenticatedUser({
-                  //   bypassCache: false,
-                  // })
-                  //   .then(user => console.log(user))
-                  //   .catch(err => console.log(err));
+                  //current user status
+                  Auth.currentAuthenticatedUser({
+                    bypassCache: false,
+                  })
+                    .then(user => console.log(user))
+                    .catch(err => console.log(err));
                 }}
               />
             </View>
