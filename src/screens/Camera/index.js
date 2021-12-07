@@ -10,7 +10,7 @@ const Camera = ({navigation}) => {
       camera.current.stopRecording();
     } else {
       const data = await camera.current.recordAsync();
-      navigation.navigate('Publish');
+      navigation.navigate('Publish', {videoUri: data.uri});
     }
   };
 
