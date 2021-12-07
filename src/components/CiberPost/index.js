@@ -26,12 +26,17 @@ const Post = props => {
   const [isLiked, setIsLiked] = React.useState(false);
   const tabBarHeight = useBottomTabBarHeight();
   React.useEffect(() => {
-    setVideoURI();
+    getVideoURI();
   }, []);
   //fetch VideoUri from Storage for VideoKey(as VideoUri in DynamoDB)
   const getVideoURI = async () => {
-    if (localPost.videoURI.startsWith('http')) setVideoURI(localPost.videoURI);
-    setVideoURI(await Storage.get(localPost.videoUri));
+    //already exists as http
+    if (localPost.videoURI.startsWith('http')) {
+      setVideoURI(localPost.videoURI);
+      return;
+    }
+    //get videoURI which is VideoKey lookit up in S3 to get VideoURI
+    setVideoURI(await Storage.get(localPost.videoURI));
   };
   const onVideoPress = () => {
     setIsPaused(!isPaused);
