@@ -11,12 +11,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontiso from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Camera from '../screens/Camera';
-
+import Publish from '../screens/Publish';
 const Tab = createBottomTabNavigator();
 
 const ProfileStack = createNativeStackNavigator();
 const PingsStack = createNativeStackNavigator();
-
+const UploadStack = createNativeStackNavigator();
 function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator screenOptions={{headerShown: false}}>
@@ -33,7 +33,14 @@ function PingsStackScreen() {
     </PingsStack.Navigator>
   );
 }
-
+function UploadStackScreen() {
+  return (
+    <UploadStack.Navigator screenOptions={{headerShown: false}}>
+      <UploadStack.Screen name="Camera" component={Camera} />
+      <UploadStack.Screen name="Publish" component={Publish} />
+    </UploadStack.Navigator>
+  );
+}
 const tagNavigator = () => {
   return (
     <Tab.Navigator
@@ -72,8 +79,16 @@ const tagNavigator = () => {
         }}
         component={PingsStackScreen}
       />
-
       <Tab.Screen
+        name="Upload"
+        options={{
+          tabBarIcon: ({color}) => (
+            <FontAwesome name={'video-camera'} size={24} color={color} />
+          ),
+        }}
+        component={UploadStackScreen}
+      />
+      {/* <Tab.Screen
         name="Upload"
         component={Camera}
         options={{
@@ -81,7 +96,7 @@ const tagNavigator = () => {
             <FontAwesome name={'video-camera'} size={24} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Posts"
         component={Posts}
