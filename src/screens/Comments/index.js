@@ -31,7 +31,18 @@ const Comments = ({navigation}) => {
     const fetchComments = async () => {
       //fetching all comments
       try {
-        const response = await API.graphql(graphqlOperation(listComments));
+        // Query with filters, limits, and pagination
+        let filter = {
+          postID: {
+            eq: post.id, // filter priority = 1
+          },
+        };
+        const response = await API.graphql({
+          query: listComments,
+          variables: {filter: filter},
+        });
+
+        // const response = await API.graphql(graphqlOperation(listComments));
         //set the data
         setComments(response.data.listComments.items);
         console.log(response); ////////////CHANGE
