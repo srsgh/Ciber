@@ -25,7 +25,7 @@ const Post = props => {
   const [isPinged, setIsPinged] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
   const tabBarHeight = useBottomTabBarHeight();
-  useEffect(() => {
+  React.useEffect(() => {
     setVideoURI();
   }, []);
   //fetch VideoUri from Storage for VideoKey(as VideoUri in DynamoDB)

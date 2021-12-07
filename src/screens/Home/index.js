@@ -11,14 +11,14 @@ const Home = () => {
   const tabBarHeight = useBottomTabBarHeight();
   const [posts, setPosts] = React.useState([]);
   //at first mount
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchPost = async () => {
       //fetching all posts
       try {
         const response = await API.graphql(graphqlOperation(listPosts));
         //set the data
         setPosts(response.data.listPosts.items);
-        console.log(response); ////////////CHANGE
+        //  console.log(response); ////////////CHANGE
       } catch (e) {
         console.error(e);
       }

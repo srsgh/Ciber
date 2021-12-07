@@ -1,23 +1,15 @@
 import React from 'react';
 import {
   StyleSheet,
-  Image,
   Dimensions,
-  FlatList,
   SafeAreaView,
   TextInput,
   Text,
   View,
   ScrollView,
-  Pressable,
-  TouchableOpacity,
   Button,
-  Linking,
 } from 'react-native';
-
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useRoute} from '@react-navigation/native';
 import {v4 as uuidv4} from 'uuid'; //To create a random UUID...
 import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
@@ -69,7 +61,6 @@ const Publish = ({navigation}) => {
       console.error(e);
     }
   };
-
   return (
     <SafeAreaView>
       <View

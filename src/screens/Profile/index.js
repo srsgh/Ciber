@@ -15,12 +15,9 @@ import {
   Linking,
 } from 'react-native';
 import posts from '../../assets/data/posts';
-import Video from 'react-native-video';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Foundation from 'react-native-vector-icons/Foundation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Auth} from 'aws-amplify';
 
