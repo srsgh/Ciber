@@ -45,7 +45,7 @@ const Post = props => {
     const likeUpdate = isLiked ? -1 : 1;
     setLocalPost({
       ...localPost,
-      likes: localPost.likes + likeUpdate,
+      likes: String(Number(localPost.likes) + likeUpdate),
     });
     setIsLiked(!isLiked);
   };

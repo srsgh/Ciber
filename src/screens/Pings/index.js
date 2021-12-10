@@ -10,15 +10,42 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import posts from '../../assets/data/posts';
 import PingItem from '../../components/PingItem';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 //import {useNavigation} from '@react-navigation/native';
+import {API, graphqlOperation, Auth} from 'aws-amplify';
+import {listPosts} from '../../graphql/queries';
 
 const Pings = ({navigation}) => {
   // const navigation = useNavigation();
   // const tabBarHeight = useBottomTabBarHeight();
+  const [pings, setPings] = React.useState([]);
+  React.useEffect(() => {
+    const fetchPings = async () => {
+      //fetching fitered comments for this post
+      try {
+        const userInfo = await Auth.currentAuthenticatedUser();
+        // Query with filters, limits, and pagination
+        let filter = {
+          userID: {
+            eq: userInfo.attributes.sub, // filter priority = 1
+          },
+        };
+        const response = await API.graphql({
+          query: listPosts,
+          variables: {filter: filter},
+        });
+        //set the data
+        await setPings(response.data.listPosts.items);
+        // console.log(response.data.listPosts.items);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchPings();
+  }, []);
+
   return (
     <SafeAreaView>
       <View style={styles.baseCard}>
@@ -27,8 +54,8 @@ const Pings = ({navigation}) => {
         </View>
         <View style={styles.pings}>
           <FlatList
-            data={posts}
-            renderItem={({item}) => <PingItem post={item} />}
+            data={pings}
+            renderItem={({item}) => <PingItem ping={item} />}
           />
         </View>
       </View>

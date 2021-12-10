@@ -58,7 +58,7 @@ const PingBox = ({navigation}) => {
             flexDirection: 'column',
             backgroundColor: 'white',
           }}>
-          {/* <Text style={styles.header}>Publish Post</Text> */}
+          <Text style={styles.header}>Connect</Text>
           <Button
             title="Go Back "
             color="black"

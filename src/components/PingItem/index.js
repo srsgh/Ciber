@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 const PingItem = props => {
-  const [localPost, setLocalPost] = React.useState(props.post);
+  const [localPing, setLocalPing] = React.useState(props.ping);
   const navigation = useNavigation();
   const doThis = async () => {
     try {
@@ -29,7 +29,7 @@ const PingItem = props => {
           <View style={styles.pingLeft}>
             <Image
               source={{
-                uri: localPost.user.ppURI,
+                uri: localPing.user.ppURI,
               }}
               style={styles.image}
             />
@@ -37,8 +37,8 @@ const PingItem = props => {
         </View>
 
         <View style={styles.pingRight}>
-          <Text style={styles.handle}>@{localPost.user.username}</Text>
-          <Text style={styles.message}>"{localPost.desc}"</Text>
+          <Text style={styles.handle}>@{localPing.user.username}</Text>
+          <Text style={styles.message}>"{localPing.desc}"</Text>
         </View>
       </View>
     </TouchableOpacity>

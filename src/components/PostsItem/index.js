@@ -13,11 +13,11 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 import posts from '../../assets/data/posts';
-// import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
 const PostsItem = props => {
-  // const tabBarHeight = useBottomTabBarHeight();
   const [localPost, setLocalPost] = React.useState(props.post);
   const navigation = useNavigation();
   const [isOpen, setIsOpen] = React.useState(!localPost.status);
@@ -28,12 +28,45 @@ const PostsItem = props => {
   return (
     <View style={styles.ping}>
       <View style={styles.pingRight}>
-        <Text style={styles.handle}>@{localPost.user.username}</Text>
+        <View
+          style={{
+            fles: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <Text style={styles.handle}>@{localPost.user.username}</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <View style={styles.statsinnercontainer}>
+              <FontAwesome
+                name={'heart'}
+                style={{paddingRight: 2}}
+                size={16}
+                color="red" // color={isLiked ? '#FF4500' : '#eeeeee'}
+              />
+              <Text style={styles.handle}>{localPost.likes}</Text>
+            </View>
+            <View style={styles.statsinnercontainer}>
+              <FontAwesome
+                name={'commenting'}
+                size={16}
+                color="black" // color={isLiked ? '#FF4500' : '#eeeeee'}
+                style={{paddingRight: 2}}
+              />
+              <Text style={styles.handle}>{localPost.comment}</Text>
+            </View>
+          </View>
+        </View>
         <Text style={styles.message}>"{localPost.desc}"</Text>
         <View>
           <Button
             onPress={onClosePress}
             title={isOpen ? 'CLOSE' : 'CLOSED'}
+            // color={isOpen ? '#FF9900' : 'gray'}
             color={isOpen ? 'black' : 'gray'}
             // disabled={isOpen ? 'true' : 'false'}
           />
@@ -58,6 +91,12 @@ const styles = StyleSheet.create({
     // padding: 8,
     color: 'black',
     //#149EF0
+  },
+  statsinnercontainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 5,
   },
   baseCard: {
     width: '100%',
@@ -98,6 +137,7 @@ const styles = StyleSheet.create({
   },
   pingRight: {
     marginLeft: 8,
+    marginRight: 8,
     flex: 1,
     // backgroundColor: 'yellow',
     // justifyContent: 'center',
