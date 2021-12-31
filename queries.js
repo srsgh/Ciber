@@ -23,6 +23,7 @@ export const getUser = /* GraphQL */ `
         nextToken
       }
       location
+      job
       bio
       skills
       dirName
@@ -50,6 +51,7 @@ export const listUsers = /* GraphQL */ `
           nextToken
         }
         location
+        job
         bio
         skills
         dirName
@@ -80,6 +82,7 @@ export const getPost = /* GraphQL */ `
           nextToken
         }
         location
+        job
         bio
         skills
         dirName
@@ -138,6 +141,7 @@ export const listPosts = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -181,6 +185,7 @@ export const getComment = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -256,6 +261,7 @@ export const getPing = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName

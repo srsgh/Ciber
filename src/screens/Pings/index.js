@@ -15,7 +15,7 @@ import PingItem from '../../components/PingItem';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 //import {useNavigation} from '@react-navigation/native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {listPosts} from '../../graphql/queries';
+import {listPings} from '../../graphql/queries';
 
 const Pings = ({navigation}) => {
   // const navigation = useNavigation();
@@ -28,17 +28,19 @@ const Pings = ({navigation}) => {
         const userInfo = await Auth.currentAuthenticatedUser();
         // Query with filters, limits, and pagination
         let filter = {
-          userID: {
+          toID: {
             eq: userInfo.attributes.sub, // filter priority = 1
           },
         };
+
         const response = await API.graphql({
-          query: listPosts,
+          query: listPings,
           variables: {filter: filter},
         });
         //set the data
-        await setPings(response.data.listPosts.items);
-        // console.log(response.data.listPosts.items);
+        console.log(response);
+        await setPings(response.data.listPings.items);
+        console.log(response.data.listPings.items);
       } catch (e) {
         console.error(e);
       }
@@ -60,61 +62,6 @@ const Pings = ({navigation}) => {
         </View>
       </View>
     </SafeAreaView>
-    // <SafeAreaView>
-    //   <View style={styles.baseCard}>
-    //     <View style={styles.header}>
-    //       <Text style={styles.headerTitle}>Ping Requests</Text>
-    //     </View>
-    //     <View style={styles.pings}>
-    //       <FlatList
-    //         data={posts}
-    //         renderItem={({item}) => (
-    //           <TouchableOpacity
-    //           // onPress={() => {
-    //           //   console.log('HEHE');
-    //           //   () => navigation.navigate('NYProfile');
-    //           // }}
-    //           >
-    //             <View style={styles.ping}>
-    //               <View style={{}}>
-    //                 <View style={styles.pingLeft}>
-    //                   <Image
-    //                     source={{
-    //                       uri: item.user.ppURI,
-    //                     }}
-    //                     style={styles.image}
-    //                   />
-    //                 </View>
-    //               </View>
-
-    //               <View style={styles.pingRight}>
-    //                 <Text style={styles.handle}>@{item.user.username}</Text>
-
-    //                 <Text style={styles.message}>"{item.desc}"</Text>
-    //                 {/* <View style={styles.actions}>
-    //                   <Button
-    //                     // onPress={onAcceptPress}
-    //                     // title={isChecked ? 'ACCEPTED' : 'ACCEPT'}
-    //                     title="ACCEPT"
-    //                     color="black"
-    //                   />
-    //                   <Button
-    //                     // onPress={onRejectPress}
-    //                     // title={isRejected ? 'REJECTED' : 'REJECT'}
-    //                     // color="black"
-    //                     title="REJECT"
-    //                   />
-    //                 </View> */}
-    //                 {/*  <Text>{item.likes}</Text>
-    //                 <Text>{item.comments}</Text> */}
-    //               </View>
-    //             </View>
-    //           </TouchableOpacity>
-    //         )}
-    //       />
-    //     </View>
-    //   </View>
-    // </SafeAreaView>
   );
 };
 

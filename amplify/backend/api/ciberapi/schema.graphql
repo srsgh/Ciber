@@ -14,6 +14,7 @@ type User @model {
   posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
   #v1# posts: [Post] @connection(keyName: "byUser", fields: ["id"])
   location: String @default(value: "")
+  job: String @default(value: "")
   bio: String @default(value: "Let other creators know more about you.")
   skills: String @default(value: "Skill#1 Skill#2 Skill#3 ...")
   #to add into User, these 4 :-

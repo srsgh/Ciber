@@ -23,6 +23,7 @@ export const onCreateUser = /* GraphQL */ `
         nextToken
       }
       location
+      job
       bio
       skills
       dirName
@@ -56,6 +57,7 @@ export const onUpdateUser = /* GraphQL */ `
         nextToken
       }
       location
+      job
       bio
       skills
       dirName
@@ -89,6 +91,7 @@ export const onDeleteUser = /* GraphQL */ `
         nextToken
       }
       location
+      job
       bio
       skills
       dirName
@@ -117,6 +120,7 @@ export const onCreatePost = /* GraphQL */ `
           nextToken
         }
         location
+        job
         bio
         skills
         dirName
@@ -173,6 +177,7 @@ export const onUpdatePost = /* GraphQL */ `
           nextToken
         }
         location
+        job
         bio
         skills
         dirName
@@ -229,6 +234,7 @@ export const onDeletePost = /* GraphQL */ `
           nextToken
         }
         location
+        job
         bio
         skills
         dirName
@@ -287,6 +293,7 @@ export const onCreateComment = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -331,6 +338,7 @@ export const onUpdateComment = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -375,6 +383,7 @@ export const onDeleteComment = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -420,6 +429,7 @@ export const onCreatePing = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -465,6 +475,7 @@ export const onUpdatePing = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -510,6 +521,7 @@ export const onDeletePing = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName

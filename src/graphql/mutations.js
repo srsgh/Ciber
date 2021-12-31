@@ -26,6 +26,7 @@ export const createUser = /* GraphQL */ `
         nextToken
       }
       location
+      job
       bio
       skills
       dirName
@@ -62,6 +63,7 @@ export const updateUser = /* GraphQL */ `
         nextToken
       }
       location
+      job
       bio
       skills
       dirName
@@ -98,6 +100,7 @@ export const deleteUser = /* GraphQL */ `
         nextToken
       }
       location
+      job
       bio
       skills
       dirName
@@ -129,6 +132,7 @@ export const createPost = /* GraphQL */ `
           nextToken
         }
         location
+        job
         bio
         skills
         dirName
@@ -188,6 +192,7 @@ export const updatePost = /* GraphQL */ `
           nextToken
         }
         location
+        job
         bio
         skills
         dirName
@@ -247,6 +252,7 @@ export const deletePost = /* GraphQL */ `
           nextToken
         }
         location
+        job
         bio
         skills
         dirName
@@ -308,6 +314,7 @@ export const createComment = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -355,6 +362,7 @@ export const updateComment = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -402,6 +410,7 @@ export const deleteComment = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -450,6 +459,7 @@ export const createPing = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -498,6 +508,7 @@ export const updatePing = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
@@ -546,6 +557,7 @@ export const deletePing = /* GraphQL */ `
           email
           ppURI
           location
+          job
           bio
           skills
           dirName
