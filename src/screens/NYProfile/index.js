@@ -19,33 +19,30 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {getUser} from '../../graphql/queries';
-
+import {useRoute} from '@react-navigation/native';
 const NYProfile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
-
-  // React.useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     //fetching fitered comments for this post
-  //     try {
-  //       // Query with filters, limits, and pagination
-  //       let filter = {
-  //         userID: {
-  //           eq: userInfo.attributes.sub, // filter priority = 1
-  //         },
-  //       };
-  //       const response = await API.graphql({
-  //         query: listPosts,
-  //         variables: {filter: filter},
-  //       });
-  //       // const response = await API.graphql(graphqlOperation(listComments));
-  //       //set the data
-  //       setPosts(response.data.listPosts.items);
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   };
-  //   fetchPosts();
-  // }, []);
+  const [localUser, setLocalUser] = React.useState([]);
+  const route = useRoute();
+  const userID = route.params.userID;
+  console.log(userID);
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      const fetchUser = async () => {
+        try {
+          const response = await API.graphql(
+            graphqlOperation(getUser, {id: userID}),
+          );
+          //set the data locally
+          setLocalUser(response.data.getUser);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchUser();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <SafeAreaView>
@@ -55,30 +52,38 @@ const NYProfile = ({navigation}) => {
           backgroundColor: 'white',
           height: Dimensions.get('window').height - tabBarHeight,
         }}>
-        <Text style={styles.header}>creatorname</Text>
+        <Text style={styles.header}>{localUser.username}</Text>
         <Button
           title="Go Back "
           color="black"
-          onPress={() => navigation.navigate('Pings')}
+          onPress={() => navigation.popToTop()}
         />
         <View style={styles.resume}>
           <View style={styles.res1}>
             <View>
               <Image
                 source={{
-                  uri: 'https://cdn.geekwire.com/wp-content/uploads/2014/09/elonmusk.jpeg',
+                  uri: localUser.ppURI,
                 }}
                 style={styles.image}
               />
             </View>
             <View style={styles.res1left}>
-              <Text style={styles.res1fn}>Elon Musk</Text>
-              <Text style={styles.res1job}>Web Designer UI</Text>
+              <Text style={styles.res1fn}>
+                {localUser.fullname ? localUser.fullname : localUser.username}
+              </Text>
+              <Text style={styles.res1job}>{localUser.job}</Text>
               <View style={styles.res1loc}>
-                <Ionicons name={'ios-location'} size={13} />
-                <Text style={{fontSize: 13, color: '#545454'}}>
-                  New York, USA
-                </Text>
+                {localUser.location ? (
+                  <>
+                    <Ionicons name={'ios-location'} size={13} />
+                    <Text style={{fontSize: 13, color: '#545454'}}>
+                      {localUser.location}
+                    </Text>
+                  </>
+                ) : (
+                  <View style={{height: 13}}></View>
+                )}
               </View>
               {/* <Button
                 title="Edit"
@@ -88,58 +93,49 @@ const NYProfile = ({navigation}) => {
           </View>
           <View style={styles.res1}>
             <Text style={{fontSize: 16, color: '#545454'}}>
-              Elon Reeve Musk FRS is an entrepreneur and business magnate. He is
-              the founder, CEO, and Chief Engineer at SpaceX; early-stage
-              investor, CEO, and Product Architect of Tesla, Inc.; founder of
-              The Boring Company; and co-founder of Neuralink and OpenAI.
+              {localUser.bio}
             </Text>
           </View>
-          {/* <View style={{padding: 8}}>
-            <View>
+          <View style={{padding: 8}}>
+            {/* <View>
               <Button title="Message" />
-            </View>
-          </View> */}
+            </View> */}
+          </View>
           <View style={{padding: 8}}>
             <View>
               <Text style={styles.res1fn}>SKILLS</Text>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               {/* <Fontisto name={'python'} size={16} /> */}
-              <Text style={{fontSize: 16, color: '#545454'}}>Python, </Text>
-              <Text style={{fontSize: 16, color: '#545454'}}>Python, </Text>
-              <Text style={{fontSize: 16, color: '#545454'}}>Python</Text>
+              <Text style={{fontSize: 16, color: '#545454'}}>
+                {localUser.skills}
+              </Text>
             </View>
           </View>
           <View style={styles.projects}>
             <Text style={styles.projectsHeader}>PROJECTS</Text>
-            <View style={styles.project}>
-              <View style={styles.res1left}>
-                <View style={styles.projectTitle}>
-                  <Text style={styles.projectTitleName}>Space X</Text>
-                  <Pressable
-                    onPress={() => {
-                      Linking.openURL('https://github.com/srsgh/fsd-q12.git');
-                    }}>
-                    <FontAwesome
-                      name="external-link"
-                      size={16}
-                      color="#0077D6"
-                    />
-                  </Pressable>
-                </View>
-                <Text style={styles.res1job}>
-                  Space Exploration Technologies Corp. is an American aerospace
-                  manufacturer, space transportation services and communications
-                  corporation headquartered in Hawthorne, California.
-                </Text>
-                <View style={styles.res1loc}>
-                  <FontAwesome name={'hashtag'} size={13} />
-                  <Text style={{fontSize: 13, color: '#545454'}}>
-                    Aerospace
-                  </Text>
+            {localUser.dirName ? (
+              <View style={styles.project}>
+                <View style={styles.res1left}>
+                  <View style={styles.projectTitle}>
+                    <Text>{localUser.dirName}</Text>
+                    <Pressable
+                      style={{paddingLeft: 8}}
+                      onPress={() => {
+                        Linking.openURL(`${localUser.dirLink}`);
+                      }}>
+                      <FontAwesome
+                        name="external-link"
+                        size={16}
+                        color="#0077D6"
+                      />
+                    </Pressable>
+                  </View>
                 </View>
               </View>
-            </View>
+            ) : (
+              <></>
+            )}
           </View>
           <View style={styles.projects}>
             <Text style={styles.projectsHeader}>SOCIALS</Text>
@@ -147,54 +143,34 @@ const NYProfile = ({navigation}) => {
               <ScrollView horizontal={true} style={{marginLeft: 8}}>
                 <Pressable
                   onPress={() => {
-                    Linking.openURL('https://github.com/');
+                    let to =
+                      'https://mail.google.com/mail/?view=cm&fs=1&to=' +
+                      `${localUser.email}` +
+                      '&su=SUBJECT&body=BODY';
+                    Linking.openURL(to);
                   }}>
-                  <Text style={styles.projectTitleName}>Github</Text>
+                  <Text style={styles.projectTitleName}>GMAIL</Text>
                 </Pressable>
-
-                <Pressable
-                  onPress={() => {
-                    Linking.openURL('https://twitter.com/elonmusk');
-                  }}>
-                  <Text style={styles.projectTitleName}>Twitter</Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    Linking.openURL('https://twitter.com/elonmusk');
-                  }}>
-                  <Text style={styles.projectTitleName}>LinkedIn</Text>
-                </Pressable>
+                {localUser.ssName ? (
+                  <Pressable
+                    onPress={() => {
+                      Linking.openURL(`${localUser.ssLink}`);
+                    }}>
+                    <Text style={styles.projectTitleName}>
+                      {localUser.ssName}
+                    </Text>
+                  </Pressable>
+                ) : (
+                  <></>
+                )}
               </ScrollView>
             </View>
           </View>
-          {/* <View style={{padding: 8}}>
-            <Text style={styles.res1fn}>POSTS</Text>
-            <ScrollView style={{marginLeft: 8}}>
-              <FlatList
-                data={posts}
-                renderItem={({item}) => (
-                  <View style={styles.ping}>
-                    <View style={styles.pingRight}>
-                      <Text style={styles.handle}>@{item.user.username}</Text>
-                      <Text
-                        style={styles.message}
-                        // numberOfLines={2}
-                        // ellipsizeMode="tail"
-                      >
-                        "{item.desc}"
-                      </Text>
-                    </View>
-                  </View>
-                )}
-              />
-            </ScrollView>
-          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',

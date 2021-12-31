@@ -25,9 +25,6 @@ import {getUser} from '../../graphql/queries';
 const Profile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
   const [localUser, setLocalUser] = React.useState([]);
-  // const route = useRoute();
-  // const updatedUser = route.params.updatedUser;
-  // setLocalUser(updatedUser);
 
   //logout service by aws: check
   const logout = async () => {

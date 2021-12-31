@@ -15,6 +15,7 @@ import Publish from '../screens/Publish';
 import CiberPost from '../components/CiberPost';
 import PingBox from '../components/PingBox';
 import Comments from '../screens/Comments';
+
 import {KeyboardAvoidingView} from 'react-native';
 const Tab = createBottomTabNavigator();
 
@@ -50,6 +51,7 @@ function ExploreStackScreen() {
   return (
     <ExploreStack.Navigator screenOptions={{headerShown: false}}>
       <ExploreStack.Screen name="Home" component={Home} />
+      <ExploreStack.Screen name="NYProfile" component={NYProfile} />
       <ExploreStack.Screen name="PingBox" component={PingBox} />
       <ExploreStack.Screen name="Comments" component={Comments} />
     </ExploreStack.Navigator>

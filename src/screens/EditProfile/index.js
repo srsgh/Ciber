@@ -48,7 +48,7 @@ const EditProfile = ({navigation}) => {
       //go back
       navigation.navigate('Profile', {
         updatedUser: await API.graphql(
-          graphqlOperation(getUser, {id: localUser.id}),
+          graphqlOperation(getUser, {id: localUser.userID}),
         ),
       });
     } catch (e) {

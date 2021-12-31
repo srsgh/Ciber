@@ -67,17 +67,19 @@ const Post = props => {
       console.error(e);
     }
   };
-  const goToUser = async () => {
-    //view poster's profile
-    try {
-      console.log('here we go!');
-      const response = await navigation.navigate('NYProfile');
-      console.log('we back!');
-    } catch (e) {
-      console.error(e);
-    }
-    // setIsPinged(!isPinged);
-  };
+  // const goToUser = async () => {
+  //   //view poster's profile
+  //   try {
+  //     console.log('here we go!');
+  //     navigation.navigate('NYProfile', {
+  //       post: localPost,
+  //     });
+  //     console.log('we back!');
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  //   // setIsPinged(!isPinged);
+  // };
 
   return (
     <View
@@ -113,7 +115,12 @@ const Post = props => {
         </View>
         <View style={styles.bottomSide}>
           <View style={styles.side}>
-            <TouchableOpacity style={styles.options} onPress={goToUser}>
+            <TouchableOpacity
+              style={styles.options}
+              onPress={() => {
+                console.log(localPost.userID);
+                navigation.navigate('NYProfile', {userID: localPost.userID});
+              }}>
               <Image
                 source={{
                   uri: localPost.user.ppURI,
