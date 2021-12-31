@@ -86,16 +86,8 @@ const Profile = ({navigation}) => {
               <Text style={styles.res1fn}>
                 {localUser.fullname ? localUser.fullname : localUser.username}
               </Text>
-              <Text style={styles.res1job}>
-                {localUser.job ? localUser.job : 'Profession'}
-              </Text>
+              <Text style={styles.res1job}>{localUser.job}</Text>
               <View style={styles.res1loc}>
-                {/* <Ionicons name={'ios-location'} size={13} />
-                <Text style={{fontSize: 13, color: '#545454'}}>
-                 {localUser.location
-                    ? localUser.location
-                    : 'Location City, State'} 
-                     </Text> */}
                 {localUser.location ? (
                   <>
                     <Ionicons name={'ios-location'} size={13} />
@@ -114,6 +106,9 @@ const Profile = ({navigation}) => {
                 }}
               />
             </View>
+          </View>
+          <View style={{paddingLeft: 8, paddingTop: 8}}>
+            <Text style={styles.res1fn}>BIO</Text>
           </View>
           <View style={styles.res1}>
             <Text style={{fontSize: 16, color: '#545454'}}>
@@ -138,53 +133,58 @@ const Profile = ({navigation}) => {
           </View>
           <View style={styles.projects}>
             <Text style={styles.projectsHeader}>PROJECTS</Text>
-            <View style={styles.project}>
-              <View style={styles.res1left}>
-                <View style={styles.projectTitle}>
-                  <Text style={styles.projectTitleName}>Ciber X</Text>
-                  <Pressable
-                    onPress={() => {
-                      Linking.openURL('https://github.com/srsgh/ciber.git');
-                    }}>
-                    <FontAwesome
-                      name="external-link"
-                      size={16}
-                      color="#0077D6"
-                    />
-                  </Pressable>
-                </View>
-                <Text style={styles.res1job}>
-                  Ciber is a react native application built for easily finding
-                  creators with similar interests to collaborate on your next
-                  big hackathon. Finding team mates and community issue
-                  resolutions are now easy.
-                </Text>
-                <View style={styles.res1loc}>
-                  <FontAwesome name={'hashtag'} size={13} />
-                  <Text style={{fontSize: 13, color: '#545454'}}>
-                    ReactNative
-                  </Text>
+            {localUser.dirName ? (
+              <View style={styles.project}>
+                <View style={styles.res1left}>
+                  <View style={styles.projectTitle}>
+                    <Text>{localUser.dirName}</Text>
+                    <Pressable
+                      style={{paddingLeft: 8}}
+                      onPress={() => {
+                        Linking.openURL(`${localUser.dirLink}`);
+                      }}>
+                      <FontAwesome
+                        name="external-link"
+                        size={16}
+                        color="#0077D6"
+                      />
+                    </Pressable>
+                  </View>
                 </View>
               </View>
-            </View>
+            ) : (
+              <></>
+            )}
           </View>
           <View style={styles.projects}>
             <Text style={styles.projectsHeader}>SOCIALS</Text>
             <View style={styles.project}>
-              <ScrollView horizontal={true} style={{marginLeft: 8}}>
-                <Pressable
-                  onPress={() => {
-                    Linking.openURL(
-                      'https://mail.google.com/mail/?view=cm&fs=1&to=' +
+              <View style={styles.res1left}>
+                <ScrollView horizontal={true} style={{marginLeft: 8}}>
+                  <Pressable
+                    onPress={() => {
+                      let to =
+                        'https://mail.google.com/mail/?view=cm&fs=1&to=' +
                         `${localUser.email}` +
-                        '&su=SUBJECT&body=BODY',
-                    );
-                  }}>
-                  <Text style={styles.projectTitleName}>
-                    {localUser.skills ? localUser.skills : localUser.email}
-                  </Text>
-                </Pressable>
-              </ScrollView>
+                        '&su=SUBJECT&body=BODY';
+                      Linking.openURL(to);
+                    }}>
+                    <Text style={styles.projectTitleName}>GMAIL</Text>
+                  </Pressable>
+                  {localUser.ssName ? (
+                    <Pressable
+                      onPress={() => {
+                        Linking.openURL(`${localUser.ssLink}`);
+                      }}>
+                      <Text style={styles.projectTitleName}>
+                        {localUser.ssName}
+                      </Text>
+                    </Pressable>
+                  ) : (
+                    <></>
+                  )}
+                </ScrollView>
+              </View>
             </View>
           </View>
         </View>

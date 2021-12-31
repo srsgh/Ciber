@@ -39,13 +39,6 @@ const EditProfile = ({navigation}) => {
   ////this is the saving function UNDER CONSTRUCTION
   const onSave = async () => {
     try {
-      // const userInfo = await Auth.currentAuthenticatedUser();
-      // console.log(userInfo);
-      // const res = await API.graphql(
-      //   graphqlOperation(getUser, {id: userInfo.attributes.sub}),
-      // );
-      // console.log(res);
-      // console.log(user);
       console.log(localUser);
       // console.log(localUser.posts);
       const response = await API.graphql({
@@ -91,7 +84,7 @@ const EditProfile = ({navigation}) => {
               <TextInput
                 style={styles.res1job}
                 // value={localUser.job}
-                // placeholder="Profession"
+                placeholder="Profession"
                 // onChangeText={text => {
                 //   setLocalUser({
                 //     ...localUser,
