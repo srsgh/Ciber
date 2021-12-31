@@ -15,6 +15,7 @@ import Publish from '../screens/Publish';
 import CiberPost from '../components/CiberPost';
 import PingBox from '../components/PingBox';
 import Comments from '../screens/Comments';
+import {KeyboardAvoidingView} from 'react-native';
 const Tab = createBottomTabNavigator();
 
 const ProfileStack = createNativeStackNavigator();
@@ -62,6 +63,7 @@ const tagNavigator = () => {
         tabStyle: {
           backgroundColor: 'black',
         },
+        keyboardHidesTabBar: true,
         activeTintColor: 'white',
       }}
       screenOptions={{headerShown: false}}>

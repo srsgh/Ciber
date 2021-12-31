@@ -30,7 +30,7 @@ const PostsItem = props => {
       <View style={styles.pingRight}>
         <View
           style={{
-            fles: 1,
+            flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>

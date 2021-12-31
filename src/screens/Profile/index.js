@@ -83,17 +83,27 @@ const Profile = ({navigation}) => {
                 {localUser.job ? localUser.job : 'Profession'}
               </Text>
               <View style={styles.res1loc}>
-                <Ionicons name={'ios-location'} size={13} />
+                {/* <Ionicons name={'ios-location'} size={13} />
                 <Text style={{fontSize: 13, color: '#545454'}}>
-                  {localUser.location
+                 {localUser.location
                     ? localUser.location
-                    : 'Location City, State'}
-                </Text>
+                    : 'Location City, State'} 
+                     </Text> */}
+                {localUser.location ? (
+                  <>
+                    <Ionicons name={'ios-location'} size={13} />
+                    <Text style={{fontSize: 13, color: '#545454'}}>
+                      {localUser.location}
+                    </Text>
+                  </>
+                ) : (
+                  <View style={{height: 13}}></View>
+                )}
               </View>
               <Button
                 title="Edit"
                 onPress={() => {
-                  navigation.navigate('EditProfile');
+                  navigation.navigate('EditProfile', {user: localUser});
                 }}
               />
             </View>

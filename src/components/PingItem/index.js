@@ -21,7 +21,6 @@ const PingItem = props => {
   return (
     <TouchableOpacity
       onPress={() => {
-        // console.log('HI ' + localPost.user.username);
         doThis();
       }}>
       <View style={styles.ping}>
@@ -35,7 +34,6 @@ const PingItem = props => {
             />
           </View>
         </View>
-
         <View style={styles.pingRight}>
           <Text style={styles.handle}>@{localPing.user.username}</Text>
           <Text style={styles.message}>"{localPing.desc}"</Text>

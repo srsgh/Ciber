@@ -16,6 +16,11 @@ type User @model {
   location: String @default(value: "")
   bio: String @default(value: "Let other creators know more about you.")
   skills: String @default(value: "")
+  #to add into User, these 4 :-
+  #dirName:String @default(value:"")
+  #dirLink: String(value:"")
+  #ssName:String @default(value:"")
+  #ssLink: String @default(value:"")
   socials: [Socials] @hasMany(indexName: "byUser", fields: ["id"])
   projects: [Project] @hasMany(indexName: "byUser", fields: ["id"])
 }
@@ -39,6 +44,18 @@ type Post @model {
   categories: [Category] @manyToMany(relationName: "PostCategories")
 }
 
+#v1# type Comment @model
+#v1# @key(name:"byPost",fields:["postID","content"])
+type Comment @model {
+  id: ID!
+  content: String!
+  senderusername: String!
+  postID: ID! @index(name: "byPost")
+  post: Post @belongsTo(fields: ["postID"])
+  #v1#  postID: ID!
+  #v1# post: Post @connection(fields:["postID"])
+}
+
 type Category @model {
   id: ID!
   label: String!
@@ -54,6 +71,7 @@ type Ping @model {
   post: Post @belongsTo(fields: ["postID"])
 }
 
+#terminate this Socials for now
 type Socials @model {
   id: ID!
   social: String!
@@ -62,6 +80,7 @@ type Socials @model {
   user: User @belongsTo(fields: ["userID"])
 }
 
+#terminate this Project for now
 type Project @model {
   id: ID!
   name: String!
@@ -72,20 +91,9 @@ type Project @model {
   tags: [Tag] @manyToMany(relationName: "ProjectTags")
 }
 
+#terminate this Tag bc of Project termination
 type Tag @model {
   id: ID!
   label: String!
   projects: [Project] @manyToMany(relationName: "ProjectTags")
-}
-
-#v1# type Comment @model
-#v1# @key(name:"byPost",fields:["postID","content"])
-type Comment @model {
-  id: ID!
-  content: String!
-  senderusername: String!
-  postID: ID! @index(name: "byPost")
-  post: Post @belongsTo(fields: ["postID"])
-  #v1#  postID: ID!
-  #v1# post: Post @connection(fields:["postID"])
 }
