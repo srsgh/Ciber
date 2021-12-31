@@ -8,16 +8,39 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {API, graphqlOperation} from 'aws-amplify';
+import {getUser} from '../../graphql/queries';
 const PingItem = props => {
   const [localPing, setLocalPing] = React.useState(props.ping);
+  const [localPinger, setLocalPinger] = React.useState([]);
   const navigation = useNavigation();
   const doThis = async () => {
     try {
-      const response = await navigation.navigate('NYProfile');
+      const response = await navigation.navigate('NYProfile', {
+        userID: localPing.pingerID,
+      });
     } catch (e) {
       console.error(e);
     }
   };
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      const fetchUser = async () => {
+        try {
+          const response = await API.graphql(
+            graphqlOperation(getUser, {id: localPing.pingerID}),
+          );
+          //set the data locally
+          await setLocalPinger(response.data.getUser);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchUser();
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -28,15 +51,15 @@ const PingItem = props => {
           <View style={styles.pingLeft}>
             <Image
               source={{
-                uri: localPing.user.ppURI,
+                uri: localPinger.ppURI,
               }}
               style={styles.image}
             />
           </View>
         </View>
         <View style={styles.pingRight}>
-          <Text style={styles.handle}>@{localPing.user.username}</Text>
-          <Text style={styles.message}>"{localPing.desc}"</Text>
+          <Text style={styles.handle}>@{localPinger.username}</Text>
+          <Text style={styles.message}>"{localPing.pingMessage}"</Text>
         </View>
       </View>
     </TouchableOpacity>

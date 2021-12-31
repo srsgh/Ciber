@@ -141,7 +141,7 @@ const NYProfile = ({navigation}) => {
                       '&su=SUBJECT&body=BODY';
                     Linking.openURL(to);
                   }}>
-                  <Text style={styles.projectTitleName}>GMAIL</Text>
+                  <Text style={styles.projectTitleName}>Gmail</Text>
                 </Pressable>
                 {localUser.ssName ? (
                   <Pressable

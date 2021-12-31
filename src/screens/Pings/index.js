@@ -13,13 +13,10 @@ import {
 import posts from '../../assets/data/posts';
 import PingItem from '../../components/PingItem';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-//import {useNavigation} from '@react-navigation/native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPings} from '../../graphql/queries';
 
 const Pings = ({navigation}) => {
-  // const navigation = useNavigation();
-  // const tabBarHeight = useBottomTabBarHeight();
   const [pings, setPings] = React.useState([]);
   React.useEffect(() => {
     const fetchPings = async () => {
@@ -32,15 +29,13 @@ const Pings = ({navigation}) => {
             eq: userInfo.attributes.sub, // filter priority = 1
           },
         };
-
         const response = await API.graphql({
           query: listPings,
           variables: {filter: filter},
         });
         //set the data
-        console.log(response);
+        // console.log(response.data.listPings.items);
         await setPings(response.data.listPings.items);
-        console.log(response.data.listPings.items);
       } catch (e) {
         console.error(e);
       }

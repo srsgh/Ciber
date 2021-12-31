@@ -152,7 +152,7 @@ const EditProfile = ({navigation}) => {
                     placeholder="Directory Name"
                     style={styles.projectTitleName}
                     value={localUser.dirName}
-                    onChange={text => {
+                    onChangeText={text => {
                       setLocalUser({...localUser, dirName: text});
                     }}
                   />

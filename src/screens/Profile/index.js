@@ -40,7 +40,6 @@ const Profile = ({navigation}) => {
       const fetchUser = async () => {
         try {
           const userInfo = await Auth.currentAuthenticatedUser();
-          console.log(userInfo);
           const response = await API.graphql(
             graphqlOperation(getUser, {id: userInfo.attributes.sub}),
           );
@@ -166,7 +165,7 @@ const Profile = ({navigation}) => {
                         '&su=SUBJECT&body=BODY';
                       Linking.openURL(to);
                     }}>
-                    <Text style={styles.projectTitleName}>GMAIL</Text>
+                    <Text style={styles.projectTitleName}>Gmail</Text>
                   </Pressable>
                   {localUser.ssName ? (
                     <Pressable
