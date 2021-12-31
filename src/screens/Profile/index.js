@@ -21,10 +21,14 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {getUser} from '../../graphql/queries';
-
+// import {useRoute} from '@react-navigation/native';
 const Profile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
   const [localUser, setLocalUser] = React.useState([]);
+  // const route = useRoute();
+  // const updatedUser = route.params.updatedUser;
+  // setLocalUser(updatedUser);
+
   //logout service by aws: check
   const logout = async () => {
     try {
@@ -35,21 +39,24 @@ const Profile = ({navigation}) => {
   };
 
   React.useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userInfo = await Auth.currentAuthenticatedUser();
-        console.log(userInfo);
-        const response = await API.graphql(
-          graphqlOperation(getUser, {id: userInfo.attributes.sub}),
-        );
-        //set the data locally
-        setLocalUser(response.data.getUser);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchUser();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      const fetchUser = async () => {
+        try {
+          const userInfo = await Auth.currentAuthenticatedUser();
+          console.log(userInfo);
+          const response = await API.graphql(
+            graphqlOperation(getUser, {id: userInfo.attributes.sub}),
+          );
+          //set the data locally
+          setLocalUser(response.data.getUser);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchUser();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <SafeAreaView>

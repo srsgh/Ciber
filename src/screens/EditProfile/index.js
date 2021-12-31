@@ -18,28 +18,50 @@ import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useRoute} from '@react-navigation/native';
-
-import {API, autoShowTooltip, graphqlOperation} from 'aws-amplify';
-import {updateUser} from './src/graphql/mutations'; //operation for mutation
+import {listComments} from '../../graphql/queries';
+import {API, Auth, graphqlOperation} from 'aws-amplify';
+import {updateUser} from '../../graphql/mutations'; //operation for mutation
+import {getUser} from '../../graphql/queries';
 const EditProfile = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
   const route = useRoute();
   const user = route.params.user;
+  const [localUser, setLocalUser] = React.useState({
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    ppURI: user.ppURI,
+    location: user.location,
+    bio: user.bio,
+    skills: user.skills,
+  }); //to save locally user edits
 
-  const [localUser, setLocalUser] = React.useState(user); //to save locally user edits
   ////this is the saving function UNDER CONSTRUCTION
-  // const onSave = async () => {
-  //   try {
-  //console.log(localUser);
-  //     const response = await API.graphql(
-  //       graphqlOperation(updateUser, {input: localUser}),
-  //     );
-  //     //go back
-  //     navigation.navigate('Profile');
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
+  const onSave = async () => {
+    try {
+      // const userInfo = await Auth.currentAuthenticatedUser();
+      // console.log(userInfo);
+      // const res = await API.graphql(
+      //   graphqlOperation(getUser, {id: userInfo.attributes.sub}),
+      // );
+      // console.log(res);
+      // console.log(user);
+      console.log(localUser);
+      // console.log(localUser.posts);
+      const response = await API.graphql({
+        query: updateUser,
+        variables: {input: localUser},
+      });
+      //go back
+      navigation.navigate('Profile', {
+        updatedUser: await API.graphql(
+          graphqlOperation(getUser, {id: localUser.id}),
+        ),
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <SafeAreaView>
       <ScrollView
@@ -68,14 +90,14 @@ const EditProfile = ({navigation}) => {
               <Text style={styles.res1fn}>{localUser.username}</Text>
               <TextInput
                 style={styles.res1job}
-                value={localUser.job}
-                placeholder="Profession"
-                onChangeText={text => {
-                  setLocalUser({
-                    ...localUser,
-                    job: text,
-                  });
-                }}
+                // value={localUser.job}
+                // placeholder="Profession"
+                // onChangeText={text => {
+                //   setLocalUser({
+                //     ...localUser,
+                //     job: text,
+                //   });
+                // }}
               />
               <View style={styles.res1loc}>
                 <Ionicons name={'ios-location'} size={13} />
@@ -91,13 +113,7 @@ const EditProfile = ({navigation}) => {
                   }}
                 />
               </View>
-              <Button
-                title="Save"
-                onPress={() => {
-                  console.log(localUser);
-                  navigation.navigate('Profile');
-                }}
-              />
+              <Button title="Save" onPress={onSave} />
             </View>
           </View>
           <View style={{padding: 8}}>
@@ -143,10 +159,10 @@ const EditProfile = ({navigation}) => {
                     maxLength={20}
                     placeholder="Directory Name"
                     style={styles.projectTitleName}
-                    value={localUser.dirName}
-                    onChange={text => {
-                      setLocalUser({...localUser, dirName: text});
-                    }}
+                    // value={localUser.dirName}
+                    // onChange={text => {
+                    //   setLocalUser({...localUser, dirName: text});
+                    // }}
                   />
                 </View>
                 <View style={styles.res1loc}>
@@ -163,10 +179,10 @@ const EditProfile = ({navigation}) => {
                   <TextInput
                     style={{marginLeft: 5, fontSize: 13, color: '#545454'}}
                     placeholder="Directory Link"
-                    value={localUser.dirLink}
-                    onChangeText={text => {
-                      setLocalUser({...localUser, dirLink: text});
-                    }}
+                    // value={localUser.dirLink}
+                    // onChangeText={text => {
+                    //   setLocalUser({...localUser, dirLink: text});
+                    // }}
                   />
                 </View>
               </View>
@@ -181,10 +197,10 @@ const EditProfile = ({navigation}) => {
                     maxLength={30}
                     placeholder="Social Site's Name"
                     style={styles.projectTitleName}
-                    value={localUser.ssName}
-                    onChange={text => {
-                      setLocalUser({...localUser, ssName: text});
-                    }}
+                    // value={localUser.ssName}
+                    // onChange={text => {
+                    //   setLocalUser({...localUser, ssName: text});
+                    // }}
                   />
                 </View>
                 <View style={styles.res1loc}>
@@ -201,10 +217,10 @@ const EditProfile = ({navigation}) => {
                   <TextInput
                     style={{marginLeft: 5, fontSize: 13, color: '#545454'}}
                     placeholder="Messenger Link"
-                    value={localUser.ssLink}
-                    onChangeText={text => {
-                      setLocalUser({...localUser, ssLink: text});
-                    }}
+                    // value={localUser.ssLink}
+                    // onChangeText={text => {
+                    //   setLocalUser({...localUser, ssLink: text});
+                    // }}
                   />
                 </View>
               </View>
