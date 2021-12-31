@@ -28,29 +28,10 @@ export const createUser = /* GraphQL */ `
       location
       bio
       skills
-      socials {
-        items {
-          id
-          social
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      projects {
-        items {
-          id
-          name
-          desc
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      dirName
+      dirLink
+      ssName
+      ssLink
       createdAt
       updatedAt
     }
@@ -83,29 +64,10 @@ export const updateUser = /* GraphQL */ `
       location
       bio
       skills
-      socials {
-        items {
-          id
-          social
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      projects {
-        items {
-          id
-          name
-          desc
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      dirName
+      dirLink
+      ssName
+      ssLink
       createdAt
       updatedAt
     }
@@ -138,29 +100,10 @@ export const deleteUser = /* GraphQL */ `
       location
       bio
       skills
-      socials {
-        items {
-          id
-          social
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      projects {
-        items {
-          id
-          name
-          desc
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      dirName
+      dirLink
+      ssName
+      ssLink
       createdAt
       updatedAt
     }
@@ -188,12 +131,10 @@ export const createPost = /* GraphQL */ `
         location
         bio
         skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
+        dirName
+        dirLink
+        ssName
+        ssLink
         createdAt
         updatedAt
       }
@@ -204,6 +145,7 @@ export const createPost = /* GraphQL */ `
           id
           pingerID
           pingMessage
+          toID
           postID
           createdAt
           updatedAt
@@ -216,16 +158,6 @@ export const createPost = /* GraphQL */ `
           content
           senderusername
           postID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      categories {
-        items {
-          id
-          postID
-          categoryID
           createdAt
           updatedAt
         }
@@ -258,12 +190,10 @@ export const updatePost = /* GraphQL */ `
         location
         bio
         skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
+        dirName
+        dirLink
+        ssName
+        ssLink
         createdAt
         updatedAt
       }
@@ -274,6 +204,7 @@ export const updatePost = /* GraphQL */ `
           id
           pingerID
           pingMessage
+          toID
           postID
           createdAt
           updatedAt
@@ -286,16 +217,6 @@ export const updatePost = /* GraphQL */ `
           content
           senderusername
           postID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      categories {
-        items {
-          id
-          postID
-          categoryID
           createdAt
           updatedAt
         }
@@ -328,12 +249,10 @@ export const deletePost = /* GraphQL */ `
         location
         bio
         skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
+        dirName
+        dirLink
+        ssName
+        ssLink
         createdAt
         updatedAt
       }
@@ -344,6 +263,7 @@ export const deletePost = /* GraphQL */ `
           id
           pingerID
           pingMessage
+          toID
           postID
           createdAt
           updatedAt
@@ -356,535 +276,6 @@ export const deletePost = /* GraphQL */ `
           content
           senderusername
           postID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      categories {
-        items {
-          id
-          postID
-          categoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createCategory = /* GraphQL */ `
-  mutation CreateCategory(
-    $input: CreateCategoryInput!
-    $condition: ModelCategoryConditionInput
-  ) {
-    createCategory(input: $input, condition: $condition) {
-      id
-      label
-      posts {
-        items {
-          id
-          postID
-          categoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateCategory = /* GraphQL */ `
-  mutation UpdateCategory(
-    $input: UpdateCategoryInput!
-    $condition: ModelCategoryConditionInput
-  ) {
-    updateCategory(input: $input, condition: $condition) {
-      id
-      label
-      posts {
-        items {
-          id
-          postID
-          categoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteCategory = /* GraphQL */ `
-  mutation DeleteCategory(
-    $input: DeleteCategoryInput!
-    $condition: ModelCategoryConditionInput
-  ) {
-    deleteCategory(input: $input, condition: $condition) {
-      id
-      label
-      posts {
-        items {
-          id
-          postID
-          categoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createPing = /* GraphQL */ `
-  mutation CreatePing(
-    $input: CreatePingInput!
-    $condition: ModelPingConditionInput
-  ) {
-    createPing(input: $input, condition: $condition) {
-      id
-      pingerID
-      pingMessage
-      postID
-      post {
-        id
-        status
-        videoURI
-        desc
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        likes
-        comment
-        pings {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updatePing = /* GraphQL */ `
-  mutation UpdatePing(
-    $input: UpdatePingInput!
-    $condition: ModelPingConditionInput
-  ) {
-    updatePing(input: $input, condition: $condition) {
-      id
-      pingerID
-      pingMessage
-      postID
-      post {
-        id
-        status
-        videoURI
-        desc
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        likes
-        comment
-        pings {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deletePing = /* GraphQL */ `
-  mutation DeletePing(
-    $input: DeletePingInput!
-    $condition: ModelPingConditionInput
-  ) {
-    deletePing(input: $input, condition: $condition) {
-      id
-      pingerID
-      pingMessage
-      postID
-      post {
-        id
-        status
-        videoURI
-        desc
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        likes
-        comment
-        pings {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createSocials = /* GraphQL */ `
-  mutation CreateSocials(
-    $input: CreateSocialsInput!
-    $condition: ModelSocialsConditionInput
-  ) {
-    createSocials(input: $input, condition: $condition) {
-      id
-      social
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateSocials = /* GraphQL */ `
-  mutation UpdateSocials(
-    $input: UpdateSocialsInput!
-    $condition: ModelSocialsConditionInput
-  ) {
-    updateSocials(input: $input, condition: $condition) {
-      id
-      social
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteSocials = /* GraphQL */ `
-  mutation DeleteSocials(
-    $input: DeleteSocialsInput!
-    $condition: ModelSocialsConditionInput
-  ) {
-    deleteSocials(input: $input, condition: $condition) {
-      id
-      social
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createProject = /* GraphQL */ `
-  mutation CreateProject(
-    $input: CreateProjectInput!
-    $condition: ModelProjectConditionInput
-  ) {
-    createProject(input: $input, condition: $condition) {
-      id
-      name
-      desc
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tags {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateProject = /* GraphQL */ `
-  mutation UpdateProject(
-    $input: UpdateProjectInput!
-    $condition: ModelProjectConditionInput
-  ) {
-    updateProject(input: $input, condition: $condition) {
-      id
-      name
-      desc
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tags {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteProject = /* GraphQL */ `
-  mutation DeleteProject(
-    $input: DeleteProjectInput!
-    $condition: ModelProjectConditionInput
-  ) {
-    deleteProject(input: $input, condition: $condition) {
-      id
-      name
-      desc
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tags {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createTag = /* GraphQL */ `
-  mutation CreateTag(
-    $input: CreateTagInput!
-    $condition: ModelTagConditionInput
-  ) {
-    createTag(input: $input, condition: $condition) {
-      id
-      label
-      projects {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateTag = /* GraphQL */ `
-  mutation UpdateTag(
-    $input: UpdateTagInput!
-    $condition: ModelTagConditionInput
-  ) {
-    updateTag(input: $input, condition: $condition) {
-      id
-      label
-      projects {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteTag = /* GraphQL */ `
-  mutation DeleteTag(
-    $input: DeleteTagInput!
-    $condition: ModelTagConditionInput
-  ) {
-    deleteTag(input: $input, condition: $condition) {
-      id
-      label
-      projects {
-        items {
-          id
-          projectID
-          tagID
           createdAt
           updatedAt
         }
@@ -919,6 +310,10 @@ export const createComment = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -928,9 +323,6 @@ export const createComment = /* GraphQL */ `
           nextToken
         }
         comments {
-          nextToken
-        }
-        categories {
           nextToken
         }
         createdAt
@@ -965,6 +357,10 @@ export const updateComment = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -974,9 +370,6 @@ export const updateComment = /* GraphQL */ `
           nextToken
         }
         comments {
-          nextToken
-        }
-        categories {
           nextToken
         }
         createdAt
@@ -1011,6 +404,10 @@ export const deleteComment = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -1022,9 +419,6 @@ export const deleteComment = /* GraphQL */ `
         comments {
           nextToken
         }
-        categories {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -1033,15 +427,17 @@ export const deleteComment = /* GraphQL */ `
     }
   }
 `;
-export const createPostCategories = /* GraphQL */ `
-  mutation CreatePostCategories(
-    $input: CreatePostCategoriesInput!
-    $condition: ModelPostCategoriesConditionInput
+export const createPing = /* GraphQL */ `
+  mutation CreatePing(
+    $input: CreatePingInput!
+    $condition: ModelPingConditionInput
   ) {
-    createPostCategories(input: $input, condition: $condition) {
+    createPing(input: $input, condition: $condition) {
       id
+      pingerID
+      pingMessage
+      toID
       postID
-      categoryID
       post {
         id
         status
@@ -1056,6 +452,10 @@ export const createPostCategories = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -1067,18 +467,6 @@ export const createPostCategories = /* GraphQL */ `
         comments {
           nextToken
         }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      category {
-        id
-        label
-        posts {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -1087,15 +475,17 @@ export const createPostCategories = /* GraphQL */ `
     }
   }
 `;
-export const updatePostCategories = /* GraphQL */ `
-  mutation UpdatePostCategories(
-    $input: UpdatePostCategoriesInput!
-    $condition: ModelPostCategoriesConditionInput
+export const updatePing = /* GraphQL */ `
+  mutation UpdatePing(
+    $input: UpdatePingInput!
+    $condition: ModelPingConditionInput
   ) {
-    updatePostCategories(input: $input, condition: $condition) {
+    updatePing(input: $input, condition: $condition) {
       id
+      pingerID
+      pingMessage
+      toID
       postID
-      categoryID
       post {
         id
         status
@@ -1110,6 +500,10 @@ export const updatePostCategories = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -1121,18 +515,6 @@ export const updatePostCategories = /* GraphQL */ `
         comments {
           nextToken
         }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      category {
-        id
-        label
-        posts {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -1141,15 +523,17 @@ export const updatePostCategories = /* GraphQL */ `
     }
   }
 `;
-export const deletePostCategories = /* GraphQL */ `
-  mutation DeletePostCategories(
-    $input: DeletePostCategoriesInput!
-    $condition: ModelPostCategoriesConditionInput
+export const deletePing = /* GraphQL */ `
+  mutation DeletePing(
+    $input: DeletePingInput!
+    $condition: ModelPingConditionInput
   ) {
-    deletePostCategories(input: $input, condition: $condition) {
+    deletePing(input: $input, condition: $condition) {
       id
+      pingerID
+      pingMessage
+      toID
       postID
-      categoryID
       post {
         id
         status
@@ -1164,6 +548,10 @@ export const deletePostCategories = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -1173,156 +561,6 @@ export const deletePostCategories = /* GraphQL */ `
           nextToken
         }
         comments {
-          nextToken
-        }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      category {
-        id
-        label
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createProjectTags = /* GraphQL */ `
-  mutation CreateProjectTags(
-    $input: CreateProjectTagsInput!
-    $condition: ModelProjectTagsConditionInput
-  ) {
-    createProjectTags(input: $input, condition: $condition) {
-      id
-      projectID
-      tagID
-      project {
-        id
-        name
-        desc
-        link
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        tags {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tag {
-        id
-        label
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateProjectTags = /* GraphQL */ `
-  mutation UpdateProjectTags(
-    $input: UpdateProjectTagsInput!
-    $condition: ModelProjectTagsConditionInput
-  ) {
-    updateProjectTags(input: $input, condition: $condition) {
-      id
-      projectID
-      tagID
-      project {
-        id
-        name
-        desc
-        link
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        tags {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tag {
-        id
-        label
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteProjectTags = /* GraphQL */ `
-  mutation DeleteProjectTags(
-    $input: DeleteProjectTagsInput!
-    $condition: ModelProjectTagsConditionInput
-  ) {
-    deleteProjectTags(input: $input, condition: $condition) {
-      id
-      projectID
-      tagID
-      project {
-        id
-        name
-        desc
-        link
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        tags {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tag {
-        id
-        label
-        projects {
           nextToken
         }
         createdAt

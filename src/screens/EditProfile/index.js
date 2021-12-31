@@ -36,11 +36,9 @@ const EditProfile = ({navigation}) => {
     skills: user.skills,
   }); //to save locally user edits
 
-  ////this is the saving function UNDER CONSTRUCTION
+  ////this is the saving function
   const onSave = async () => {
     try {
-      console.log(localUser);
-      // console.log(localUser.posts);
       const response = await API.graphql({
         query: updateUser,
         variables: {input: localUser},

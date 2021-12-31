@@ -25,29 +25,10 @@ export const onCreateUser = /* GraphQL */ `
       location
       bio
       skills
-      socials {
-        items {
-          id
-          social
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      projects {
-        items {
-          id
-          name
-          desc
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      dirName
+      dirLink
+      ssName
+      ssLink
       createdAt
       updatedAt
     }
@@ -77,29 +58,10 @@ export const onUpdateUser = /* GraphQL */ `
       location
       bio
       skills
-      socials {
-        items {
-          id
-          social
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      projects {
-        items {
-          id
-          name
-          desc
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      dirName
+      dirLink
+      ssName
+      ssLink
       createdAt
       updatedAt
     }
@@ -129,29 +91,10 @@ export const onDeleteUser = /* GraphQL */ `
       location
       bio
       skills
-      socials {
-        items {
-          id
-          social
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      projects {
-        items {
-          id
-          name
-          desc
-          link
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      dirName
+      dirLink
+      ssName
+      ssLink
       createdAt
       updatedAt
     }
@@ -176,12 +119,10 @@ export const onCreatePost = /* GraphQL */ `
         location
         bio
         skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
+        dirName
+        dirLink
+        ssName
+        ssLink
         createdAt
         updatedAt
       }
@@ -192,6 +133,7 @@ export const onCreatePost = /* GraphQL */ `
           id
           pingerID
           pingMessage
+          toID
           postID
           createdAt
           updatedAt
@@ -204,16 +146,6 @@ export const onCreatePost = /* GraphQL */ `
           content
           senderusername
           postID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      categories {
-        items {
-          id
-          postID
-          categoryID
           createdAt
           updatedAt
         }
@@ -243,12 +175,10 @@ export const onUpdatePost = /* GraphQL */ `
         location
         bio
         skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
+        dirName
+        dirLink
+        ssName
+        ssLink
         createdAt
         updatedAt
       }
@@ -259,6 +189,7 @@ export const onUpdatePost = /* GraphQL */ `
           id
           pingerID
           pingMessage
+          toID
           postID
           createdAt
           updatedAt
@@ -271,16 +202,6 @@ export const onUpdatePost = /* GraphQL */ `
           content
           senderusername
           postID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      categories {
-        items {
-          id
-          postID
-          categoryID
           createdAt
           updatedAt
         }
@@ -310,12 +231,10 @@ export const onDeletePost = /* GraphQL */ `
         location
         bio
         skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
+        dirName
+        dirLink
+        ssName
+        ssLink
         createdAt
         updatedAt
       }
@@ -326,6 +245,7 @@ export const onDeletePost = /* GraphQL */ `
           id
           pingerID
           pingMessage
+          toID
           postID
           createdAt
           updatedAt
@@ -338,490 +258,6 @@ export const onDeletePost = /* GraphQL */ `
           content
           senderusername
           postID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      categories {
-        items {
-          id
-          postID
-          categoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateCategory = /* GraphQL */ `
-  subscription OnCreateCategory {
-    onCreateCategory {
-      id
-      label
-      posts {
-        items {
-          id
-          postID
-          categoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateCategory = /* GraphQL */ `
-  subscription OnUpdateCategory {
-    onUpdateCategory {
-      id
-      label
-      posts {
-        items {
-          id
-          postID
-          categoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteCategory = /* GraphQL */ `
-  subscription OnDeleteCategory {
-    onDeleteCategory {
-      id
-      label
-      posts {
-        items {
-          id
-          postID
-          categoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreatePing = /* GraphQL */ `
-  subscription OnCreatePing {
-    onCreatePing {
-      id
-      pingerID
-      pingMessage
-      postID
-      post {
-        id
-        status
-        videoURI
-        desc
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        likes
-        comment
-        pings {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdatePing = /* GraphQL */ `
-  subscription OnUpdatePing {
-    onUpdatePing {
-      id
-      pingerID
-      pingMessage
-      postID
-      post {
-        id
-        status
-        videoURI
-        desc
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        likes
-        comment
-        pings {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeletePing = /* GraphQL */ `
-  subscription OnDeletePing {
-    onDeletePing {
-      id
-      pingerID
-      pingMessage
-      postID
-      post {
-        id
-        status
-        videoURI
-        desc
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        likes
-        comment
-        pings {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateSocials = /* GraphQL */ `
-  subscription OnCreateSocials {
-    onCreateSocials {
-      id
-      social
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSocials = /* GraphQL */ `
-  subscription OnUpdateSocials {
-    onUpdateSocials {
-      id
-      social
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSocials = /* GraphQL */ `
-  subscription OnDeleteSocials {
-    onDeleteSocials {
-      id
-      social
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateProject = /* GraphQL */ `
-  subscription OnCreateProject {
-    onCreateProject {
-      id
-      name
-      desc
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tags {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateProject = /* GraphQL */ `
-  subscription OnUpdateProject {
-    onUpdateProject {
-      id
-      name
-      desc
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tags {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteProject = /* GraphQL */ `
-  subscription OnDeleteProject {
-    onDeleteProject {
-      id
-      name
-      desc
-      link
-      userID
-      user {
-        id
-        username
-        email
-        ppURI
-        posts {
-          nextToken
-        }
-        location
-        bio
-        skills
-        socials {
-          nextToken
-        }
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tags {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateTag = /* GraphQL */ `
-  subscription OnCreateTag {
-    onCreateTag {
-      id
-      label
-      projects {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateTag = /* GraphQL */ `
-  subscription OnUpdateTag {
-    onUpdateTag {
-      id
-      label
-      projects {
-        items {
-          id
-          projectID
-          tagID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteTag = /* GraphQL */ `
-  subscription OnDeleteTag {
-    onDeleteTag {
-      id
-      label
-      projects {
-        items {
-          id
-          projectID
-          tagID
           createdAt
           updatedAt
         }
@@ -853,6 +289,10 @@ export const onCreateComment = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -862,9 +302,6 @@ export const onCreateComment = /* GraphQL */ `
           nextToken
         }
         comments {
-          nextToken
-        }
-        categories {
           nextToken
         }
         createdAt
@@ -896,6 +333,10 @@ export const onUpdateComment = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -905,9 +346,6 @@ export const onUpdateComment = /* GraphQL */ `
           nextToken
         }
         comments {
-          nextToken
-        }
-        categories {
           nextToken
         }
         createdAt
@@ -939,6 +377,10 @@ export const onDeleteComment = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -950,9 +392,6 @@ export const onDeleteComment = /* GraphQL */ `
         comments {
           nextToken
         }
-        categories {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -961,12 +400,14 @@ export const onDeleteComment = /* GraphQL */ `
     }
   }
 `;
-export const onCreatePostCategories = /* GraphQL */ `
-  subscription OnCreatePostCategories {
-    onCreatePostCategories {
+export const onCreatePing = /* GraphQL */ `
+  subscription OnCreatePing {
+    onCreatePing {
       id
+      pingerID
+      pingMessage
+      toID
       postID
-      categoryID
       post {
         id
         status
@@ -981,6 +422,10 @@ export const onCreatePostCategories = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -992,18 +437,6 @@ export const onCreatePostCategories = /* GraphQL */ `
         comments {
           nextToken
         }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      category {
-        id
-        label
-        posts {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -1012,12 +445,14 @@ export const onCreatePostCategories = /* GraphQL */ `
     }
   }
 `;
-export const onUpdatePostCategories = /* GraphQL */ `
-  subscription OnUpdatePostCategories {
-    onUpdatePostCategories {
+export const onUpdatePing = /* GraphQL */ `
+  subscription OnUpdatePing {
+    onUpdatePing {
       id
+      pingerID
+      pingMessage
+      toID
       postID
-      categoryID
       post {
         id
         status
@@ -1032,6 +467,10 @@ export const onUpdatePostCategories = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -1043,18 +482,6 @@ export const onUpdatePostCategories = /* GraphQL */ `
         comments {
           nextToken
         }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      category {
-        id
-        label
-        posts {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -1063,12 +490,14 @@ export const onUpdatePostCategories = /* GraphQL */ `
     }
   }
 `;
-export const onDeletePostCategories = /* GraphQL */ `
-  subscription OnDeletePostCategories {
-    onDeletePostCategories {
+export const onDeletePing = /* GraphQL */ `
+  subscription OnDeletePing {
+    onDeletePing {
       id
+      pingerID
+      pingMessage
+      toID
       postID
-      categoryID
       post {
         id
         status
@@ -1083,6 +512,10 @@ export const onDeletePostCategories = /* GraphQL */ `
           location
           bio
           skills
+          dirName
+          dirLink
+          ssName
+          ssLink
           createdAt
           updatedAt
         }
@@ -1092,147 +525,6 @@ export const onDeletePostCategories = /* GraphQL */ `
           nextToken
         }
         comments {
-          nextToken
-        }
-        categories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      category {
-        id
-        label
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateProjectTags = /* GraphQL */ `
-  subscription OnCreateProjectTags {
-    onCreateProjectTags {
-      id
-      projectID
-      tagID
-      project {
-        id
-        name
-        desc
-        link
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        tags {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tag {
-        id
-        label
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateProjectTags = /* GraphQL */ `
-  subscription OnUpdateProjectTags {
-    onUpdateProjectTags {
-      id
-      projectID
-      tagID
-      project {
-        id
-        name
-        desc
-        link
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        tags {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tag {
-        id
-        label
-        projects {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteProjectTags = /* GraphQL */ `
-  subscription OnDeleteProjectTags {
-    onDeleteProjectTags {
-      id
-      projectID
-      tagID
-      project {
-        id
-        name
-        desc
-        link
-        userID
-        user {
-          id
-          username
-          email
-          ppURI
-          location
-          bio
-          skills
-          createdAt
-          updatedAt
-        }
-        tags {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      tag {
-        id
-        label
-        projects {
           nextToken
         }
         createdAt

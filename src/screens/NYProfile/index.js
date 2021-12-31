@@ -17,7 +17,7 @@ import {
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {API, graphqlOperation, Auth} from 'aws-amplify';
+import {API, graphqlOperation} from 'aws-amplify';
 import {getUser} from '../../graphql/queries';
 import {useRoute} from '@react-navigation/native';
 const NYProfile = ({navigation}) => {
@@ -85,10 +85,6 @@ const NYProfile = ({navigation}) => {
                   <View style={{height: 13}}></View>
                 )}
               </View>
-              {/* <Button
-                title="Edit"
-                onPress={() => navigation.navigate('EditProfile')}
-              /> */}
             </View>
           </View>
           <View style={styles.res1}>
@@ -96,11 +92,7 @@ const NYProfile = ({navigation}) => {
               {localUser.bio}
             </Text>
           </View>
-          <View style={{padding: 8}}>
-            {/* <View>
-              <Button title="Message" />
-            </View> */}
-          </View>
+          <View style={{padding: 8}}></View>
           <View style={{padding: 8}}>
             <View>
               <Text style={styles.res1fn}>SKILLS</Text>

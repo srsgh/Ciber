@@ -28,6 +28,7 @@ const Post = props => {
   React.useEffect(() => {
     getVideoURI();
   }, []);
+
   //fetch VideoUri from Storage for VideoKey(as VideoUri in DynamoDB)
   const getVideoURI = async () => {
     //already exists as http
@@ -67,19 +68,6 @@ const Post = props => {
       console.error(e);
     }
   };
-  // const goToUser = async () => {
-  //   //view poster's profile
-  //   try {
-  //     console.log('here we go!');
-  //     navigation.navigate('NYProfile', {
-  //       post: localPost,
-  //     });
-  //     console.log('we back!');
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  //   // setIsPinged(!isPinged);
-  // };
 
   return (
     <View

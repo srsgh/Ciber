@@ -34,10 +34,12 @@ const PingBox = ({navigation}) => {
         postID: post.id,
         pingMessage: pingMessage.trim(),
         pingerID: userInfo.attributes.sub,
+        toID: post.userID,
       };
       const response = await API.graphql(
         graphqlOperation(createPing, {input: newPing}),
       );
+      // console.log(post.userID);
       //go back
       Toast.show('Connection request sent!');
       navigation.navigate('Home');
