@@ -80,7 +80,7 @@ const Profile = ({navigation}) => {
             </View>
             <View style={styles.res1left}>
               <Text style={styles.res1fn}>
-                {localUser.fullname ? localUser.fullname : localUser.username}
+                {localUser.fullName ? localUser.fullName : localUser.username}
               </Text>
               <Text style={styles.res1job}>{localUser.job}</Text>
               <View style={styles.res1loc}>
@@ -103,13 +103,13 @@ const Profile = ({navigation}) => {
               />
             </View>
           </View>
-          <View style={{paddingLeft: 8, paddingTop: 8}}>
+          <View style={{padding: 8}}>
             <Text style={styles.res1fn}>BIO</Text>
-          </View>
-          <View style={styles.res1}>
-            <Text style={{fontSize: 16, color: '#545454'}}>
-              {localUser.bio}
-            </Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={{fontSize: 16, color: '#545454'}}>
+                {localUser.bio}
+              </Text>
+            </View>
           </View>
           {/* <View style={{padding: 8}}>
             <View>
@@ -231,6 +231,7 @@ const styles = StyleSheet.create({
   res1: {
     padding: 8,
     flexDirection: 'row',
+    maxWidth: '70%',
     // borderBottomColor: 'gray',
     // borderBottomWidth: 0.5,
   },

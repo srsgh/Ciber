@@ -106,7 +106,7 @@ const Post = props => {
             <TouchableOpacity
               style={styles.options}
               onPress={() => {
-                console.log(localPost.userID);
+                // console.log(localPost.userID);
                 navigation.navigate('NYProfile', {userID: localPost.userID});
               }}>
               <Image

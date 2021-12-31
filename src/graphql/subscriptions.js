@@ -6,6 +6,7 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser {
       id
       username
+      fullName
       email
       ppURI
       posts {
@@ -40,6 +41,7 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser {
       id
       username
+      fullName
       email
       ppURI
       posts {
@@ -74,6 +76,7 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser {
       id
       username
+      fullName
       email
       ppURI
       posts {
@@ -114,6 +117,7 @@ export const onCreatePost = /* GraphQL */ `
       user {
         id
         username
+        fullName
         email
         ppURI
         posts {
@@ -171,6 +175,7 @@ export const onUpdatePost = /* GraphQL */ `
       user {
         id
         username
+        fullName
         email
         ppURI
         posts {
@@ -228,6 +233,7 @@ export const onDeletePost = /* GraphQL */ `
       user {
         id
         username
+        fullName
         email
         ppURI
         posts {
@@ -290,6 +296,7 @@ export const onCreateComment = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -335,6 +342,7 @@ export const onUpdateComment = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -380,6 +388,7 @@ export const onDeleteComment = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -426,6 +435,7 @@ export const onCreatePing = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -472,6 +482,7 @@ export const onUpdatePing = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -518,6 +529,7 @@ export const onDeletePing = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location

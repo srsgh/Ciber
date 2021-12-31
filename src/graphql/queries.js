@@ -6,6 +6,7 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       username
+      fullName
       email
       ppURI
       posts {
@@ -45,6 +46,7 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         username
+        fullName
         email
         ppURI
         posts {
@@ -76,6 +78,7 @@ export const getPost = /* GraphQL */ `
       user {
         id
         username
+        fullName
         email
         ppURI
         posts {
@@ -138,6 +141,7 @@ export const listPosts = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -182,6 +186,7 @@ export const getComment = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -258,6 +263,7 @@ export const getPing = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location

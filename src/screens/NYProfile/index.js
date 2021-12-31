@@ -25,7 +25,6 @@ const NYProfile = ({navigation}) => {
   const [localUser, setLocalUser] = React.useState([]);
   const route = useRoute();
   const userID = route.params.userID;
-  console.log(userID);
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       const fetchUser = async () => {
@@ -70,7 +69,7 @@ const NYProfile = ({navigation}) => {
             </View>
             <View style={styles.res1left}>
               <Text style={styles.res1fn}>
-                {localUser.fullname ? localUser.fullname : localUser.username}
+                {localUser.fullName ? localUser.fullName : localUser.username}
               </Text>
               <Text style={styles.res1job}>{localUser.job}</Text>
               <View style={styles.res1loc}>
@@ -87,10 +86,13 @@ const NYProfile = ({navigation}) => {
               </View>
             </View>
           </View>
-          <View style={styles.res1}>
-            <Text style={{fontSize: 16, color: '#545454'}}>
-              {localUser.bio}
-            </Text>
+          <View style={{padding: 8}}>
+            <Text style={styles.res1fn}>BIO</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={{fontSize: 16, color: '#545454'}}>
+                {localUser.bio}
+              </Text>
+            </View>
           </View>
           <View style={{padding: 8}}></View>
           <View style={{padding: 8}}>
@@ -192,6 +194,7 @@ const styles = StyleSheet.create({
   res1: {
     padding: 8,
     flexDirection: 'row',
+    width: '70%',
     // borderBottomColor: 'gray',
     // borderBottomWidth: 0.5,
   },

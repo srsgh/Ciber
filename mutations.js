@@ -9,6 +9,7 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       username
+      fullName
       email
       ppURI
       posts {
@@ -46,6 +47,7 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       username
+      fullName
       email
       ppURI
       posts {
@@ -83,6 +85,7 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       username
+      fullName
       email
       ppURI
       posts {
@@ -126,6 +129,7 @@ export const createPost = /* GraphQL */ `
       user {
         id
         username
+        fullName
         email
         ppURI
         posts {
@@ -186,6 +190,7 @@ export const updatePost = /* GraphQL */ `
       user {
         id
         username
+        fullName
         email
         ppURI
         posts {
@@ -246,6 +251,7 @@ export const deletePost = /* GraphQL */ `
       user {
         id
         username
+        fullName
         email
         ppURI
         posts {
@@ -311,6 +317,7 @@ export const createComment = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -359,6 +366,7 @@ export const updateComment = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -407,6 +415,7 @@ export const deleteComment = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -456,6 +465,7 @@ export const createPing = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -505,6 +515,7 @@ export const updatePing = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location
@@ -554,6 +565,7 @@ export const deletePing = /* GraphQL */ `
         user {
           id
           username
+          fullName
           email
           ppURI
           location

@@ -31,6 +31,7 @@ const EditProfile = ({navigation}) => {
     username: user.username,
     email: user.email,
     ppURI: user.ppURI,
+    fullName: user.fullName,
     job: user.job,
     location: user.location,
     bio: user.bio,
@@ -70,16 +71,21 @@ const EditProfile = ({navigation}) => {
         />
         <View style={styles.resume}>
           <View style={styles.res1}>
-            <View>
-              <Image
-                source={{
-                  uri: localUser.ppURI,
-                }}
-                style={styles.image}
-              />
-            </View>
+            <Image
+              source={{
+                uri: localUser.ppURI,
+              }}
+              style={styles.image}
+            />
             <View style={styles.res1left}>
-              <Text style={styles.res1fn}>{localUser.username}</Text>
+              <TextInput
+                value={localUser.fullName}
+                style={styles.res1fn}
+                placeholder="Full Name"
+                onChangeText={text => {
+                  setLocalUser({...localUser, fullName: text});
+                }}
+              />
               <TextInput
                 style={styles.res1job}
                 value={localUser.job}
@@ -91,6 +97,20 @@ const EditProfile = ({navigation}) => {
                   });
                 }}
               />
+              <View style={styles.res1loc}>
+                <Ionicons name={'ios-camera'} size={13} />
+                <TextInput
+                  style={styles.res1job}
+                  value={localUser.ppURI}
+                  placeholder="Profile Picture URI"
+                  onChangeText={text => {
+                    setLocalUser({
+                      ...localUser,
+                      ppURI: text,
+                    });
+                  }}
+                />
+              </View>
               <View style={styles.res1loc}>
                 <Ionicons name={'ios-location'} size={13} />
                 <TextInput
@@ -110,20 +130,19 @@ const EditProfile = ({navigation}) => {
           </View>
           <View style={{padding: 8}}>
             <Text style={styles.res1fn}>BIO</Text>
-          </View>
-          <View style={styles.res1}>
-            <TextInput
-              placeholder="Bio"
-              style={{fontSize: 16, color: '#545454'}}
-              value={localUser.bio}
-              onChangeText={text => {
-                setLocalUser({
-                  ...localUser,
-                  bio: text,
-                });
-                // console.log(localUser);
-              }}
-            />
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <TextInput
+                placeholder="Bio"
+                style={{fontSize: 16, color: '#545454'}}
+                value={localUser.bio}
+                onChangeText={text => {
+                  setLocalUser({
+                    ...localUser,
+                    bio: text,
+                  });
+                }}
+              />
+            </View>
           </View>
           <View style={{padding: 8}}>
             <View>
@@ -250,7 +269,11 @@ const styles = StyleSheet.create({
   },
   res1: {
     padding: 8,
+    // paddingRight: 16,
+    // margin: 8,
     flexDirection: 'row',
+    maxWidth: '67%',
+
     // borderBottomColor: 'gray',
     // borderBottomWidth: 0.5,
   },
