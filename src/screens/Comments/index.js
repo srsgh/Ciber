@@ -88,10 +88,10 @@ const Comments = ({navigation}) => {
   };
   return (
     <KeyboardAvoidingView>
-      <View
+      <ScrollView
         style={{
           width: '100%',
-          height: Dimensions.get('window').height - tabBarHeight,
+          // height: Dimensions.get('window').height - tabBarHeight,
         }}>
         <View
           style={{
@@ -133,7 +133,7 @@ const Comments = ({navigation}) => {
             </ScrollView>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };

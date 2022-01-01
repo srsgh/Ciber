@@ -71,7 +71,7 @@ const PingBox = ({navigation}) => {
               <Text style={styles.descsHeader}>
                 ADD A MESSAGE TO YOUR CONNECT REQUEST
               </Text>
-              <ScrollView>
+              <ScrollView style={{maxHeight: '92%', minHeight: '40%'}}>
                 <TextInput
                   style={styles.desc}
                   value={pingMessage}

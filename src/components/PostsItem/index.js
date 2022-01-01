@@ -14,7 +14,6 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
 import posts from '../../assets/data/posts';
 
 const PostsItem = props => {
