@@ -15,8 +15,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/native';
 import {Storage} from 'aws-amplify';
-import PingBox from '../../components/PingBox';
-import NYProfile from '../../screens/NYProfile';
+import {API, graphqlOperation, Auth} from 'aws-amplify';
+import {getPost} from '../../graphql/queries';
 const Post = props => {
   const navigation = useNavigation();
   const [localPost, setLocalPost] = React.useState(props.post);
@@ -25,9 +25,28 @@ const Post = props => {
   const [isPinged, setIsPinged] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
   const tabBarHeight = useBottomTabBarHeight();
+  // React.useEffect(() => {
+  //   getVideoURI();
+  // }, []);
+
   React.useEffect(() => {
-    getVideoURI();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getVideoURI();
+      const fetchPost = async () => {
+        try {
+          const response = await API.graphql(
+            graphqlOperation(getPost, {id: localPost.id}),
+          );
+          //set the data locally
+          setLocalPost(response.data.getPost);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchPost();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   //fetch VideoUri from Storage for VideoKey(as VideoUri in DynamoDB)
   const getVideoURI = async () => {
@@ -93,11 +112,11 @@ const Post = props => {
           <View
             style={{
               padding: 8,
-              backgroundColor: localPost.status ? 'green' : 'red',
+              backgroundColor: localPost.status === false ? 'green' : 'red',
               borderRadius: 1,
             }}>
             <Text style={styles.topText}>
-              {localPost.status ? 'RESOLVED' : 'ISSUE'}
+              {localPost.status === false ? 'RESOLVED' : 'ISSUE'}
             </Text>
           </View>
         </View>
