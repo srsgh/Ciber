@@ -17,28 +17,44 @@ import {useNavigation} from '@react-navigation/native';
 import {Storage} from 'aws-amplify';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {getPost} from '../../graphql/queries';
+import {updatePost} from '../../graphql/mutations';
 const Post = props => {
   const navigation = useNavigation();
-  const [localPost, setLocalPost] = React.useState(props.post);
   const [videoURI, setVideoURI] = React.useState('');
   const [isPaused, setIsPaused] = React.useState(false);
   const [isPinged, setIsPinged] = React.useState(false);
-  const [isLiked, setIsLiked] = React.useState(false);
+  const [youLiked, setYouLiked] = React.useState(false);
   const tabBarHeight = useBottomTabBarHeight();
-  // React.useEffect(() => {
-  //   getVideoURI();
-  // }, []);
+  React.useEffect(() => {
+    getVideoURI();
+  });
 
+  //fetch VideoUri from Storage for VideoKey(as VideoUri in DynamoDB)
+  const getVideoURI = async () => {
+    //already exists as http
+    if (post.videoURI.startsWith('http')) {
+      setVideoURI(post.videoURI);
+      return;
+    }
+    //get videoURI which is VideoKey lookit up in S3 to get VideoURI
+    setVideoURI(await Storage.get(post.videoURI));
+  };
+  const onVideoPress = () => {
+    setIsPaused(!isPaused);
+  };
+
+  const [post, setPost] = React.useState(props.post);
+  // let [localPost, setLocalPost] = React.useState({});
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      getVideoURI();
+      // getVideoURI();
       const fetchPost = async () => {
         try {
           const response = await API.graphql(
-            graphqlOperation(getPost, {id: localPost.id}),
+            graphqlOperation(getPost, {id: post.id}),
           );
-          //set the data locally
-          setLocalPost(response.data.getPost);
+          //
+          setPost(response.data.getPost);
         } catch (e) {
           console.error(e);
         }
@@ -46,34 +62,59 @@ const Post = props => {
       fetchPost();
     });
     return unsubscribe;
-  }, [navigation]);
-
-  //fetch VideoUri from Storage for VideoKey(as VideoUri in DynamoDB)
-  const getVideoURI = async () => {
-    //already exists as http
-    if (localPost.videoURI.startsWith('http')) {
-      setVideoURI(localPost.videoURI);
-      return;
+  });
+  const onLikePress = async () => {
+    try {
+      // if (youLiked === false) console.log('you liked');
+      // else console.log('you unliked');
+      const likeUpdate = youLiked ? -1 : +1;
+      //fetched current in db
+      try {
+        const response = await API.graphql(
+          graphqlOperation(getPost, {id: post.id}),
+        );
+        setPost(response.data.getPost);
+        // console.log(response.data.getPost);
+      } catch (e) {
+        console.error(e);
+      }
+      //make updater instance
+      const localPost = {
+        id: post.id,
+        status: post.status,
+        videoURI: post.videoURI,
+        desc: post.desc,
+        userID: post.userID,
+        comment: post.comment,
+        likes: String(Number(post.likes) + likeUpdate), //102
+      };
+      //console.log(localPost);
+      const response = await API.graphql({
+        query: updatePost,
+        variables: {input: localPost},
+      });
+      await setYouLiked(!youLiked);
+      // console.log(post);
+      try {
+        const response = await API.graphql(
+          graphqlOperation(getPost, {id: post.id}),
+        );
+        //
+        setPost(response.data.getPost);
+        console.log(response.data.getPost);
+      } catch (e) {
+        console.error(e);
+      }
+    } catch (e) {
+      console.error(e);
+      setYouLiked(!youLiked);
     }
-    //get videoURI which is VideoKey lookit up in S3 to get VideoURI
-    setVideoURI(await Storage.get(localPost.videoURI));
-  };
-  const onVideoPress = () => {
-    setIsPaused(!isPaused);
-  };
-  const onLikePress = () => {
-    const likeUpdate = isLiked ? -1 : 1;
-    setLocalPost({
-      ...localPost,
-      likes: String(Number(localPost.likes) + likeUpdate),
-    });
-    setIsLiked(!isLiked);
   };
   const onPingPress = async () => {
     //update the actual pings list for the post then
     try {
       // console.log('PINGED!');
-      navigation.navigate('PingBox', {post: localPost});
+      navigation.navigate('PingBox', {post: post});
       // console.log('PING END!');
     } catch (e) {
       console.error(e);
@@ -82,7 +123,7 @@ const Post = props => {
   };
   const onCommentsPress = async () => {
     try {
-      navigation.navigate('Comments', {post: localPost});
+      navigation.navigate('Comments', {post: post});
     } catch (e) {
       console.error(e);
     }
@@ -112,11 +153,11 @@ const Post = props => {
           <View
             style={{
               padding: 8,
-              backgroundColor: localPost.status === false ? 'green' : 'red',
+              backgroundColor: post.status === false ? 'green' : 'red',
               borderRadius: 1,
             }}>
             <Text style={styles.topText}>
-              {localPost.status === false ? 'RESOLVED' : 'ISSUE'}
+              {post.status === false ? 'RESOLVED' : 'ISSUE'}
             </Text>
           </View>
         </View>
@@ -126,52 +167,56 @@ const Post = props => {
               style={styles.options}
               onPress={() => {
                 // console.log(localPost.userID);
-                navigation.navigate('NYProfile', {userID: localPost.userID});
+                navigation.navigate('NYProfile', {userID: post.userID});
               }}>
               <Image
                 source={{
-                  uri: localPost.user.ppURI,
+                  uri: post.user.ppURI,
                 }}
                 style={styles.image}
               />
               <Text style={styles.stats}></Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              disabled={localPost.status ? true : false}
-              style={styles.options}
-              onPress={onPingPress}>
-              <FontAwesome5
-                name={'hands-helping'}
-                size={35}
-                color={
-                  localPost.status
-                    ? 'transparent'
-                    : isPinged
-                    ? '#149EF0'
-                    : '#eeeeee'
-                }
-              />
-              <Text textColor={localPost.status ? '#0000ffff' : 'white'}></Text>
-            </TouchableOpacity>
+            {post.status === false ? (
+              <View style={styles.options}></View>
+            ) : (
+              <TouchableOpacity
+                // disabled={post.status ? true : false}
+                style={styles.options}
+                onPress={onPingPress}>
+                <FontAwesome5
+                  name={'hands-helping'}
+                  size={35}
+                  color={
+                    post.status === false
+                      ? 'transparent'
+                      : isPinged
+                      ? '#149EF0'
+                      : '#eeeeee'
+                  }
+                />
+                <Text textColor={post.status ? '#0000ffff' : 'white'}></Text>
+              </TouchableOpacity>
+            )}
             <TouchableOpacity style={styles.options} onPress={onLikePress}>
               <FontAwesome
                 name={'heart'}
                 size={35}
-                color={isLiked ? '#FF4500' : '#eeeeee'}
+                color={youLiked ? '#FF4500' : '#eeeeee'}
               />
-              <Text style={styles.stats}>{localPost.likes}</Text>
+              <Text style={styles.stats}>{post.likes}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.options} onPress={onCommentsPress}>
               <FontAwesome name={'commenting'} size={35} color="white" />
-              <Text style={styles.stats}>{localPost.comment}</Text>
+              <Text style={styles.stats}>{post.comment}</Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.handle}>@{localPost.user.username}</Text>
+          <Text style={styles.handle}>@{post.user.username}</Text>
           <Text
             style={styles.description}
             numberOfLines={3}
             ellipsizeMode="tail">
-            {localPost.desc}
+            {post.desc}
           </Text>
         </View>
       </View>
