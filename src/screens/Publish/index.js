@@ -8,17 +8,17 @@ import {
   View,
   ScrollView,
   Button,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {useRoute} from '@react-navigation/native';
 import {v4 as uuidv4} from 'uuid'; //To create a random UUID...
 import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
+import Toast from 'react-native-simple-toast';
 import {createPost} from '../../graphql/mutations';
 const Publish = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
-  const [desc, setDesc] = React.useState(
-    'Enter a short description for this video.',
-  );
+  const [desc, setDesc] = React.useState('');
   const [videoKey, setVideoKey] = React.useState(null);
   const route = useRoute();
   //upload to s3 in aws
@@ -40,8 +40,17 @@ const Publish = ({navigation}) => {
 
   //create post in db API
   const onPublish = async () => {
+    if (!desc.trim()) {
+      Toast.show('Please add a comment first.', Toast.SHORT, [
+        'UIAlertController',
+      ]);
+      return;
+    }
     if (!videoKey) {
-      console.warn('Uploading in process, Breathe...');
+      // console.warn('Uploading in process, Breathe...');
+      Toast.show('Uploading in process, Breathe...', Toast.SHORT, [
+        'UIAlertController',
+      ]);
       return;
     }
     try {
@@ -56,13 +65,14 @@ const Publish = ({navigation}) => {
         graphqlOperation(createPost, {input: newPost}),
       );
       //go back
+      Toast.show('Upload successful.', Toast.SHORT, ['UIAlertController']);
       navigation.navigate('Camera');
     } catch (e) {
       console.error(e);
     }
   };
   return (
-    <SafeAreaView>
+    <KeyboardAvoidingView>
       <View
         style={{
           width: '100%',
@@ -83,33 +93,35 @@ const Publish = ({navigation}) => {
           <View style={styles.description}>
             <View style={styles.descs}>
               <Text style={styles.descsHeader}>ADD DESCRIPTION</Text>
-              <ScrollView>
+              <View>
                 <TextInput
                   style={styles.desc}
                   value={desc}
+                  placeholder="Enter a short description for this video."
                   onChangeText={setDesc}
                   numberOfLines={5}
                   multiline
                 />
-              </ScrollView>
-            </View>
-            {/* for adding categories */}
-            {/* <View style={styles.descs}>
-            <Text style={styles.descsHeader}>ADD CATEGORY</Text>
-            <View style={styles.res1left}>
-              <View style={styles.projectTitle}>
-                <FontAwesome name={'hashtag'} size={13} />
-                <TextInput style={styles.projectTitleName}>tags</TextInput>
+                <View style={{}}>
+                  <Button title="Publish" onPress={onPublish} />
+                </View>
+                <View
+                  style={{
+                    paddingBottom: 60,
+                    // flex: 1,
+                    paddingTop: 20,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                  }}>
+                  <Text style={{}}>C!ber 👽</Text>
+                </View>
               </View>
             </View>
-          </View> */}
           </View>
         </View>
-        <View style={{}}>
-          <Button title="Publish" onPress={onPublish} />
-        </View>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -125,6 +137,8 @@ const styles = StyleSheet.create({
     margin: 8,
   },
   desc: {
+    minHeight: '45%',
+    maxHeight: '45%',
     padding: 8,
     marginTop: 5,
     fontSize: 16,

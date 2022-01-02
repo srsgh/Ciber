@@ -13,39 +13,40 @@ import {
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
 import PostsItem from '../../components/PostsItem';
+import {useNavigation} from '@react-navigation/native';
 
 const Posts = () => {
-  // const [isOpen, setIsOpen] = React.useState();
-  // const onClosePress = () => {
-  //   setIsOpen(!isOpen);
-  // };
+  const navigation = useNavigation();
   //get all the posts of this user
   const [posts, setPosts] = React.useState([]);
 
   React.useEffect(() => {
-    const fetchPosts = async () => {
-      //fetching fitered comments for this post
-      try {
-        const userInfo = await Auth.currentAuthenticatedUser();
-        // Query with filters, limits, and pagination
-        let filter = {
-          userID: {
-            eq: userInfo.attributes.sub, // filter priority = 1
-          },
-        };
-        const response = await API.graphql({
-          query: listPosts,
-          variables: {filter: filter},
-        });
-        // const response = await API.graphql(graphqlOperation(listComments));
-        //set the data
-        setPosts(response.data.listPosts.items);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchPosts();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      const fetchPosts = async () => {
+        //fetching fitered comments for this post
+        try {
+          const userInfo = await Auth.currentAuthenticatedUser();
+          // Query with filters, limits, and pagination
+          let filter = {
+            userID: {
+              eq: userInfo.attributes.sub, // filter priority = 1
+            },
+          };
+          const response = await API.graphql({
+            query: listPosts,
+            variables: {filter: filter},
+          });
+          // const response = await API.graphql(graphqlOperation(listComments));
+          //set the data
+          setPosts(response.data.listPosts.items);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchPosts();
+    });
+    return unsubscribe;
+  });
 
   return (
     <SafeAreaView>
@@ -54,6 +55,20 @@ const Posts = () => {
         <View style={styles.pings}>
           <FlatList
             data={posts}
+            ListHeaderComponent={<></>}
+            ListFooterComponent={
+              <View
+                style={{
+                  paddingBottom: '150%',
+                  // flex: 1,
+                  paddingTop: 20,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignContent: 'flex-end',
+                }}>
+                <Text style={{}}>C!ber 👽</Text>
+              </View>
+            }
             renderItem={({item}) => <PostsItem post={item} />}
           />
         </View>

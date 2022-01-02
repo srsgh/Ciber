@@ -6,39 +6,58 @@ import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {updatePost} from '../../graphql/mutations'; //operation for mutation
 import {getPost} from '../../graphql/queries';
 const PostsItem = props => {
-  const [localPost, setLocalPost] = React.useState({
-    id: props.post.id,
-    status: props.post.status,
-    videoURI: props.post.videoURI,
-    desc: props.post.desc,
-    userID: props.post.userID,
-    likes: props.post.likes,
-    comment: props.post.comment,
-  });
+  const [post, setPost] = React.useState({});
   const navigation = useNavigation();
-  const [isOpen, setIsOpen] = React.useState(!localPost.status);
-
+  const [isOpen, setIsOpen] = React.useState(false);
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      const fetchUser = async () => {
+        try {
+          const response = await API.graphql(
+            graphqlOperation(getPost, {id: props.post.id}),
+          );
+          //set the data locally
+          await setPost(response.data.getPost);
+          setIsOpen(!response.data.getPost.status);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchUser();
+    });
+    return unsubscribe;
+  }, [navigation]);
   const onClosePress = async () => {
-    // setIsOpen(!isOpen);
     try {
-      // console.log(localPost.status);
-      // console.log(isOpen);
-
-      setLocalPost({...localPost, status: !localPost.status}); //status chnage
-
-      // console.log(localPost);
-
+      //fetch
+      try {
+        const response = await API.graphql(
+          graphqlOperation(getPost, {id: props.post.id}),
+        );
+        setPost(response.data.getPost);
+      } catch (e) {
+        console.error(e);
+      }
+      //updater obj
+      const localPost = {
+        id: post.id,
+        status: !response.data.getPost.status,
+        videoURI: post.videoURI,
+        desc: post.desc,
+        userID: post.userID,
+        likes: post.likes,
+        comment: post.comment,
+      };
+      //update
       const response = await API.graphql({
         query: updatePost,
         variables: {input: localPost},
       });
       setIsOpen(!isOpen); //change is open
-      //go back
-      // navigation.navigate('Profile');
-
-      // console.log(localPost.status);
-      // console.log(isOpen);
-      // console.log(response);
+      //go back; fetch updated post again
+      const resp2 = await API.graphql(graphqlOperation(getPost, {id: post.id}));
+      //
+      setPost(resp2.data.getPost);
     } catch (e) {
       console.error(e);
     }
@@ -67,7 +86,7 @@ const PostsItem = props => {
                 size={16}
                 color="red" // color={isLiked ? '#FF4500' : '#eeeeee'}
               />
-              <Text style={styles.handle}>{localPost.likes}</Text>
+              <Text style={styles.handle}>{post.likes}</Text>
             </View>
             <View style={styles.statsinnercontainer}>
               <FontAwesome
@@ -76,18 +95,16 @@ const PostsItem = props => {
                 color="black" // color={isLiked ? '#FF4500' : '#eeeeee'}
                 style={{paddingRight: 2}}
               />
-              <Text style={styles.handle}>{localPost.comment}</Text>
+              <Text style={styles.handle}>{post.comment}</Text>
             </View>
           </View>
         </View>
-        <Text style={styles.message}>"{localPost.desc}"</Text>
+        <Text style={styles.message}>"{post.desc}"</Text>
         <View>
           <Button
             onPress={onClosePress}
             title={isOpen ? 'CLOSE' : 'CLOSED'}
-            // color={isOpen ? '#FF9900' : 'gray'}
             color={isOpen ? 'black' : 'gray'}
-            // disabled={isOpen ? 'true' : 'false'}
           />
         </View>
       </View>

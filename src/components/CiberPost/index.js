@@ -28,7 +28,6 @@ const Post = props => {
   React.useEffect(() => {
     getVideoURI();
   });
-
   //fetch VideoUri from Storage for VideoKey(as VideoUri in DynamoDB)
   const getVideoURI = async () => {
     //already exists as http
@@ -42,7 +41,6 @@ const Post = props => {
   const onVideoPress = () => {
     setIsPaused(!isPaused);
   };
-
   const [post, setPost] = React.useState(props.post);
   // let [localPost, setLocalPost] = React.useState({});
   React.useEffect(() => {
@@ -65,8 +63,6 @@ const Post = props => {
   });
   const onLikePress = async () => {
     try {
-      // if (youLiked === false) console.log('you liked');
-      // else console.log('you unliked');
       const likeUpdate = youLiked ? -1 : +1;
       //fetched current in db
       try {
@@ -89,6 +85,7 @@ const Post = props => {
         likes: String(Number(post.likes) + likeUpdate), //102
       };
       //console.log(localPost);
+      //update w new instance
       const response = await API.graphql({
         query: updatePost,
         variables: {input: localPost},
@@ -110,6 +107,7 @@ const Post = props => {
       setYouLiked(!youLiked);
     }
   };
+
   const onPingPress = async () => {
     //update the actual pings list for the post then
     try {
@@ -128,7 +126,52 @@ const Post = props => {
       console.error(e);
     }
   };
-
+  // const onLikePress = async () => {
+  //   try {
+  //     const likeUpdate = youLiked ? -1 : +1;
+  //     //fetched current in db
+  //     try {
+  //       const response = await API.graphql(
+  //         graphqlOperation(getPost, {id: post.id}),
+  //       );
+  //       setPost(response.data.getPost);
+  //       // console.log(response.data.getPost);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //     //make updater instance
+  //     const localPost = {
+  //       id: post.id,
+  //       status: post.status,
+  //       videoURI: post.videoURI,
+  //       desc: post.desc,
+  //       userID: post.userID,
+  //       comment: post.comment,
+  //       likes: String(Number(post.likes) + likeUpdate), //102
+  //     };
+  //     //console.log(localPost);
+  //     //update w new instance
+  //     const response = await API.graphql({
+  //       query: updatePost,
+  //       variables: {input: localPost},
+  //     });
+  //     await setYouLiked(!youLiked);
+  //     // console.log(post);
+  //     try {
+  //       const response = await API.graphql(
+  //         graphqlOperation(getPost, {id: post.id}),
+  //       );
+  //       //
+  //       setPost(response.data.getPost);
+  //       console.log(response.data.getPost);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //     setYouLiked(!youLiked);
+  //   }
+  // };
   return (
     <View
       style={{
@@ -153,11 +196,11 @@ const Post = props => {
           <View
             style={{
               padding: 8,
-              backgroundColor: post.status === false ? 'green' : 'red',
+              backgroundColor: post.status ? 'green' : 'red',
               borderRadius: 1,
             }}>
             <Text style={styles.topText}>
-              {post.status === false ? 'RESOLVED' : 'ISSUE'}
+              {post.status ? 'RESOLVED' : 'ISSUE'}
             </Text>
           </View>
         </View>
@@ -177,7 +220,7 @@ const Post = props => {
               />
               <Text style={styles.stats}></Text>
             </TouchableOpacity>
-            {post.status === false ? (
+            {post.status ? (
               <View style={styles.options}></View>
             ) : (
               <TouchableOpacity
@@ -188,7 +231,7 @@ const Post = props => {
                   name={'hands-helping'}
                   size={35}
                   color={
-                    post.status === false
+                    post.status
                       ? 'transparent'
                       : isPinged
                       ? '#149EF0'

@@ -19,7 +19,7 @@ import Toast from 'react-native-simple-toast';
 import {updatePost} from '../../graphql/mutations';
 import posts from '../../assets/data/posts';
 import CommentsItem from '../../components/CommentsItem';
-import {listComments} from '../../graphql/queries';
+import {listComments, getPost} from '../../graphql/queries';
 const Comments = ({navigation}) => {
   const tabBarHeight = useBottomTabBarHeight();
   const [content, setContent] = React.useState('');
@@ -41,10 +41,8 @@ const Comments = ({navigation}) => {
           query: listComments,
           variables: {filter: filter},
         });
-        // const response = await API.graphql(graphqlOperation(listComments));
         //set the data
         setComments(response.data.listComments.items);
-        //console.log(response); ////////////CHANGE
       } catch (e) {
         console.error(e);
       }
@@ -62,8 +60,6 @@ const Comments = ({navigation}) => {
         return;
       }
       const userInfo = await Auth.currentAuthenticatedUser();
-      //   console.log(userInfo);
-      //   console.log(typeof userInfo.username);
       const newComment = {
         postID: post.id,
         content: content.trim(),
@@ -72,68 +68,108 @@ const Comments = ({navigation}) => {
       const response = await API.graphql(
         graphqlOperation(createComment, {input: newComment}),
       );
-      //go back
-
-      //TASK: ADD:   comment , i.e. count updating
-      //   const updatedPost = {...post, comment: post.comment + 1};
-      //   const response2 = await API.graphql(
-      //     graphqlOperation(updatePost, {input: updatedPost}),
-      //   );
-
+      const res = await API.graphql(graphqlOperation(getPost, {id: post.id}));
+      const localPost = {
+        id: res.data.getPost.id,
+        status: res.data.getPost.status,
+        videoURI: res.data.getPost.videoURI,
+        desc: res.data.getPost.desc,
+        userID: res.data.getPost.userID,
+        likes: res.data.getPost.likes,
+        comment: String(Number(res.data.getPost.comment) + 1), //102
+      };
+      const res1 = await API.graphql({
+        query: updatePost,
+        variables: {input: localPost},
+      });
+      //reload comments
+      try {
+        // Query with filters, limits, and pagination
+        let filter = {
+          postID: {
+            eq: post.id, // filter priority = 1
+          },
+        };
+        const res2 = await API.graphql({
+          query: listComments,
+          variables: {filter: filter},
+        });
+        //set the data
+        setComments(res2.data.listComments.items);
+      } catch (e) {
+        console.error(e);
+      }
+      setContent('');
       Toast.show('Comment posted successfully!');
-      navigation.navigate('Home');
+      // navigation.navigate('Home');
     } catch (e) {
       console.error(e);
     }
   };
+
   return (
     <KeyboardAvoidingView>
-      <ScrollView
+      <SafeAreaView
         style={{
           width: '100%',
-          // height: Dimensions.get('window').height - tabBarHeight,
+          height: Dimensions.get('window').height - tabBarHeight,
+          backgroundColor: 'white',
         }}>
-        <View
+        {/* <View
           style={{
-            flex: 1,
-            flexDirection: 'column',
+            // flex: 1,
+            // flexDirection: 'column',
             backgroundColor: 'white',
-          }}>
-          <Text style={styles.header}>Comments</Text>
-          <Button
-            title="Go Back "
-            color="black"
-            onPress={() => navigation.navigate('Home')}
-          />
-          <View style={styles.description}>
-            <View style={styles.descs}>
-              <Text style={styles.descsHeader}>ADD A COMMENT</Text>
-              <ScrollView>
-                <TextInput
-                  style={styles.desc}
-                  value={content}
-                  onChangeText={setContent}
-                  numberOfLines={5}
-                  multiline
-                  placeholder="Type your comment here..."
-                />
-              </ScrollView>
-              <Button title="Comment" color="black" onPress={onComment} />
-            </View>
-            <View style={styles.descs}>
-              <Text style={styles.descsHeader}>SEE PREVIOUS COMMENTS</Text>
-            </View>
-            <ScrollView style={styles.descs}>
-              <View style={styles.pings}>
-                <FlatList
-                  data={comments}
-                  renderItem={({item}) => <CommentsItem comment={item} />}
-                />
-              </View>
-            </ScrollView>
+          }}> */}
+        <Text style={styles.header}>Comments</Text>
+        <Button
+          title="Go Back "
+          color="black"
+          onPress={() => navigation.navigate('Home')}
+        />
+        <>
+          <View style={styles.descs}>
+            {/* <Text style={styles.descsHeader}>ADD A COMMENT</Text> */}
+            <TextInput
+              style={styles.desc}
+              value={content}
+              onChangeText={setContent}
+              numberOfLines={5}
+              multiline
+              placeholder="Type your comment here..."
+            />
+            <Button title="Comment" color="black" onPress={onComment} />
           </View>
+        </>
+        <View style={{padding: 8}}>
+          <Text style={styles.descsHeader}>SEE PREVIOUS COMMENTS</Text>
         </View>
-      </ScrollView>
+        <View style={styles.description}>
+          <SafeAreaView style={styles.descs}>
+            <View>
+              <FlatList
+                data={comments}
+                ListHeaderComponent={<></>}
+                ListFooterComponent={
+                  <View
+                    style={{
+                      paddingBottom: '100%',
+                      // flex: 1,
+                      paddingTop: 20,
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignContent: 'flex-end',
+                    }}>
+                    <Text style={{}}>C!ber 👽</Text>
+                  </View>
+                }
+                renderItem={({item}) => <CommentsItem comment={item} />}
+              />
+            </View>
+          </SafeAreaView>
+        </View>
+        {/* </View> */}
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
@@ -150,6 +186,7 @@ const styles = StyleSheet.create({
     margin: 8,
   },
   desc: {
+    // flex: 1,
     padding: 8,
     marginTop: 5,
     fontSize: 16,

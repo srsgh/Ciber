@@ -184,6 +184,17 @@ const Profile = ({navigation}) => {
             </View>
           </View>
         </View>
+        <View
+          style={{
+            paddingBottom: 60,
+            // flex: 1,
+            paddingTop: 20,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignContent: 'center',
+          }}>
+          <Text style={{}}>C!ber 👽</Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

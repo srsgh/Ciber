@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Text,
   View,
+  ScrollView,
   TouchableOpacity,
   Button,
 } from 'react-native';
@@ -19,42 +20,58 @@ import {listPings} from '../../graphql/queries';
 const Pings = ({navigation}) => {
   const [pings, setPings] = React.useState([]);
   React.useEffect(() => {
-    const fetchPings = async () => {
-      //fetching fitered comments for this post
-      try {
-        const userInfo = await Auth.currentAuthenticatedUser();
-        // Query with filters, limits, and pagination
-        let filter = {
-          toID: {
-            eq: userInfo.attributes.sub, // filter priority = 1
-          },
-        };
-        const response = await API.graphql({
-          query: listPings,
-          variables: {filter: filter},
-        });
-        //set the data
-        // console.log(response.data.listPings.items);
-        await setPings(response.data.listPings.items);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchPings();
-  }, []);
+    //navigation focused
+    const unsubscribe = navigation.addListener('focus', () => {
+      const fetchPings = async () => {
+        //fetching fitered comments for this post
+        try {
+          const userInfo = await Auth.currentAuthenticatedUser();
+          // Query with filters, limits, and pagination
+          let filter = {
+            toID: {
+              eq: userInfo.attributes.sub, // filter priority = 1
+            },
+          };
+          const response = await API.graphql({
+            query: listPings,
+            variables: {filter: filter},
+          });
+          //set the data
+          // console.log(response.data.listPings.items);
+          await setPings(response.data.listPings.items);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchPings();
+    });
+    return unsubscribe;
+  });
 
   return (
-    <SafeAreaView>
-      <View style={styles.baseCard}>
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Ping Requests</Text>
-        </View>
-        <View style={styles.pings}>
-          <FlatList
-            data={pings}
-            renderItem={({item}) => <PingItem ping={item} />}
-          />
-        </View>
+    <SafeAreaView style={styles.baseCard}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Ping Requests</Text>
+      </View>
+      <View style={styles.pings}>
+        <FlatList
+          ListHeaderComponent={<></>}
+          ListFooterComponent={
+            <View
+              style={{
+                paddingBottom: '150%',
+                // flex: 1,
+                paddingTop: 20,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignContent: 'flex-end',
+              }}>
+              <Text style={{}}>C!ber 👽</Text>
+            </View>
+          }
+          data={pings}
+          renderItem={({item}) => <PingItem ping={item} />}
+        />
       </View>
     </SafeAreaView>
   );
